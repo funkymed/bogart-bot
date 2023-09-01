@@ -1,5 +1,7 @@
 {
   "token": "",
   "appId": "",
-  "guildId": ""
+  "guildId": "",
+  "omdbapi": "",
+  "openweatherapi": ""
 }
