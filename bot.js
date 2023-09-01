@@ -16,7 +16,7 @@ const client = new Client({
   ],
 });
 
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
 
 const ServiceQr = require("./services/class.service.qr.js");
@@ -97,7 +97,10 @@ const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 
     // The put method is used to fully refresh all commands in the guild with the current set
     const data = await rest.put(
-      Routes.applicationGuildCommands(process.env.DISCORD_APPID, process.env.DISCORD_GUILDID),
+      Routes.applicationGuildCommands(
+        process.env.DISCORD_APPID,
+        process.env.DISCORD_GUILDID
+      ),
       { body: commands }
     );
 
@@ -120,9 +123,8 @@ client.on(Events.MessageCreate, (message) => {
   // const channel = message.channel.name;
   const text = message.content;
   const nickname = message.author.username;
-  const isBot = message.author.username === "bogart";
   // skip bot message
-  if (!isBot) {
+  if (!message.author.bot) {
     // process all services
     for (const svc of allServices) {
       const obj = new svc(nickname);
