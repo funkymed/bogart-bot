@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 
 function getWikipedia(search) {
+  console.log("wikipedia", search);
   const url = `https://fr.wikipedia.org/w/api.php?action=query&list=search&format=json&&rawcontinue&srsearch=${search}`;
 
   return axios.get(url).then((response) => {

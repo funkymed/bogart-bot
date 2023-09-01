@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 
 function getWeather(city) {
+  console.log("meteo", city);
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${process.env.OPENWEATHER_API_KEY}`;
 
   return axios.get(url).then((response) => {

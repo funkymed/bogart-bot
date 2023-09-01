@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 
 function searchMovie(search) {
+  console.log("movie", search.value);
   const url = `https://www.omdbapi.com/?s=${escape(
     search.value
   )}&apikey=${process.env.OMB_API_KEY}&t=${Date.now()}`;
