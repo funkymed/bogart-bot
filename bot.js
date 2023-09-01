@@ -16,7 +16,9 @@ const client = new Client({
   ],
 });
 
-const { token, appId, guildId } = require("./config.json");
+const dotenv = require('dotenv');
+dotenv.config();
+
 const ServiceQr = require("./services/class.service.qr.js");
 const ServiceLol = require("./services/class.service.lol");
 const fs = require("node:fs");
@@ -84,7 +86,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
   }
 });
 
-const rest = new REST().setToken(token);
+const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 
 // add and deploy your commands!
 (async () => {
@@ -95,7 +97,7 @@ const rest = new REST().setToken(token);
 
     // The put method is used to fully refresh all commands in the guild with the current set
     const data = await rest.put(
-      Routes.applicationGuildCommands(appId, guildId),
+      Routes.applicationGuildCommands(process.env.DISCORD_APPID, process.env.DISCORD_GUILDID),
       { body: commands }
     );
 
@@ -141,4 +143,4 @@ client.on(Events.MessageCreate, (message) => {
   }
 });
 
-client.login(token);
+client.login(process.env.DISCORD_TOKEN);

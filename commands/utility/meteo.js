@@ -1,9 +1,8 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
-const { openweatherapi } = require("../../config.json");
 
 function getWeather(city) {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${openweatherapi}`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&lang=fr&appid=${process.env.OPENWEATHER_API_KEY}`;
 
   return axios.get(url).then((response) => {
     return response.data;

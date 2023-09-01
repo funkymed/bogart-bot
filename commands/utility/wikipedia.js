@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
-const { openweatherapi } = require("../../config.json");
 
 function getWikipedia(search) {
   const url = `https://fr.wikipedia.org/w/api.php?action=query&list=search&format=json&&rawcontinue&srsearch=${search}`;
