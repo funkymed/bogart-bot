@@ -102,6 +102,10 @@ class ServiceLol extends ServiceAbstract {
 
   getMessage(text) {
     const command = this.getCommands(text);
+    return this.getLol(command);
+  }
+
+  getLol(command) {
     switch (command) {
       case "lol":
         return this.makeLol();

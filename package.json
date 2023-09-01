@@ -1,5 +1,5 @@
 {
-  "name": "bender-bot",
+  "name": "bogart-bot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.5.0",
     "cli-color": "^2.0.3",
+    "date-format": "^4.0.14",
     "discord.js": "^14.13.0",
     "eris": "^0.17.2",
     "node-storage": "^0.0.9",

@@ -15,6 +15,7 @@ const client = new Client({
     GatewayIntentBits.DirectMessages,
   ],
 });
+
 const { token, appId, guildId } = require("./config.json");
 const ServiceQr = require("./services/class.service.qr.js");
 const ServiceLol = require("./services/class.service.lol");
@@ -22,7 +23,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 client.once(Events.ClientReady, (err, mesg) => {
-  console.log(clc.green("Bender is up and ready"));
+  console.log(clc.green("Bogart is up and ready"));
 });
 
 // --------------------
@@ -31,31 +32,33 @@ client.once(Events.ClientReady, (err, mesg) => {
 
 const commands = [];
 client.commands = new Collection();
-const commandsPath = path.join(__dirname, "commands");
-const commandFiles = fs
-  .readdirSync(commandsPath)
-  .filter((file) => file.endsWith(".js"));
+const foldersPath = path.join(__dirname, "commands");
+const commandFolders = fs.readdirSync(foldersPath);
 
-for (const file of commandFiles) {
-  const filePath = path.join(commandsPath, file);
-
-  const command = require(filePath);
-
-  // Set a new item in the Collection with the key as the command name and the value as the exported module
-  if ("data" in command && "execute" in command) {
-    client.commands.set(command.data.name, command);
-    commands.push(command.data.toJSON());
-  } else {
-    console.log(
-      `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
-    );
+for (const folder of commandFolders) {
+  const commandsPath = path.join(foldersPath, folder);
+  const commandFiles = fs
+    .readdirSync(commandsPath)
+    .filter((file) => file.endsWith(".js"));
+  for (const file of commandFiles) {
+    const filePath = path.join(commandsPath, file);
+    const command = require(filePath);
+    // Set a new item in the Collection with the key as the command name and the value as the exported module
+    if ("data" in command && "execute" in command) {
+      client.commands.set(command.data.name, command);
+      commands.push(command.data.toJSON());
+    } else {
+      console.log(
+        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`
+      );
+    }
   }
 }
 
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
-  console.log(`call command /${interaction.commandName}`);
+  // console.log(`call command /${interaction.commandName}`);
   const command = interaction.client.commands.get(interaction.commandName);
 
   if (!command) {
@@ -83,7 +86,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
 const rest = new REST().setToken(token);
 
-// and deploy your commands!
+// add and deploy your commands!
 (async () => {
   try {
     console.log(
@@ -115,9 +118,9 @@ client.on(Events.MessageCreate, (message) => {
   // const channel = message.channel.name;
   const text = message.content;
   const nickname = message.author.username;
-  const isBender = message.author.username === "bender-bot";
+  const isBot = message.author.username === "bogart";
   // skip bot message
-  if (!isBender) {
+  if (!isBot) {
     // process all services
     for (const svc of allServices) {
       const obj = new svc(nickname);

@@ -1,4 +1,4 @@
-"merci qui,merci qui ?,merci qui?,merci qui bender ?,merci qui bender?":
+"merci qui,merci qui ?,merci qui?,merci qui bogart ?,merci qui bogart?":
   - "Merci *Jacquie et Michel*"
 "test,123,allo":
   - "test, un deux"
@@ -82,30 +82,30 @@
   - "moi par contre je suis libre"
   - "viens on s'inscrit sur tinder"
   - "moi je suis sur meetic"
-"connard,bender connard":
+"connard,bogart connard":
   - "%user_name c'est toi le connard"
   - "ho !! dis donc tu te calme %user_name !"
   - "%user_name je vais venir te botter le cul"
   - "j'ai ton digicode"
-"ferme là,ferme la,tg,bender ta gueule,ta gueule, bender ferme là, bender ferme là,ta gueule bender,ferme la bender":
+"ferme là,ferme la,tg,bogart ta gueule,ta gueule, bogart ferme là, bogart ferme là,ta gueule bogart,ferme la bogart":
   - "d'accord"
   - "pardon"
   - "oulala t'es de mauvais poil"
   - "on a affaire au président de discord les amis"
   - "attention le boss est dans la place"
   - "hoho, alerte aux gogoles les enfants"
-"encule,bender encule,enculer":
+"encule,bogart encule,enculer":
   - "%user_name c'est toi l'enculé"
   - "attends ... ok :("
   - "mince, je suis démasqué :/"
   - "hoho, alerte aux gogoles"
-"grosse pute,bender grosse pute":
+"grosse pute,bogart grosse pute":
   - "%user_name c'est ta mére la pute"
   - "ho !! dis donc tu te calme %user_name !"
   - "%user_name je vais venir te botter le cul"
-"grosse merde,bender grosse merde":
+"grosse merde,bogart grosse merde":
   - "%user_name c'est toi la grosse merde"
-"bender batard":
+"bogart batard":
   - "je connais albator moi"
   - "n'importe quoi"
   - "tu vas prendre cher %user_name si tu continue"
@@ -137,7 +137,7 @@
 "bite,zgeg,tebi,zizi":
   - "le mien est tordu"
   - "je veux pas en parler"
-"salut bender,salut,yo,lo,luss,elo,olà,lu,bonjour,hi,kikoolol,allo,alo,hello":
+"salut bogart, salut @bogard,ça va @bogart ?,salut,yo,lo,luss,elo,olà,lu,bonjour,hi,kikoolol,allo,alo,hello":
   0: "%text %user_name"
   1: "hey mon ami !"
   2: "bien le bonjour %user_name"
@@ -154,7 +154,7 @@
   - "la petite"
   - "coller coller !"
   - "coller coller coller COLLER coller coller coller COLLER coller COLLER COLLER LA PETITE !"
-"bender":
+"bogart":
   0: "oui ?"
   1: "oui %user_name ? je t'écoute"
   2: "j'écoute ta quéstion %user_name"
@@ -213,7 +213,7 @@
               - "ouep"
               - "casse toi"
               - "encore là ?"
-    "ça va ?,ca va ?,sa va ?,ça va bender,ca va bender":
+    "ça va ?,ca va ?,sa va ?,ça va bogart,ca va bogart":
       0: "Bien et toi ?"
       1: "niquel et toi %user_name ?"
       2: "c'est gentil de demander, et toi %user_name ?"
