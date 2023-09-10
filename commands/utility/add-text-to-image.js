@@ -96,7 +96,7 @@ module.exports = {
       if (sTextBottom) {
         ctx.fillStyle = "rgba(0, 0, 0, 1.0)";
 
-        drawText(ctx, sTextBottom, {
+        drawText(ctx, sTextBottom.value, {
           x: border,
           y: canvas.height - border - canvas.height / 3,
           font,
