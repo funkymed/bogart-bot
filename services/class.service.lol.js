@@ -85,7 +85,7 @@ class ServiceLol extends ServiceAbstract {
       `${getRandom(this.dictionnary["bend01"])},`,
       getRandom(this.dictionnary["bend02"]),
       getRandom(this.dictionnary["bend03"]),
-      getRandom(this.dictionnary["bend04"]),
+      `${getRandom(this.dictionnary["bend04"])},`,
       getRandom(this.dictionnary["bend05"]),
     ];
 
