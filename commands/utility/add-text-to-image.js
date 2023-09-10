@@ -1,9 +1,8 @@
 const { SlashCommandBuilder, AttachmentBuilder } = require("discord.js");
-const axios = require("axios");
 const fs = require("fs");
 const { createCanvas, loadImage, registerFont } = require("canvas");
 const { drawText } = require("canvas-txt");
-
+const uniqid = require("uniqid");
 const { sleep } = require("../../utils");
 
 // (B) SETTINGS - CHANGE FONT TO YOUR OWN!
@@ -47,7 +46,8 @@ module.exports = {
     const font = interaction.options.get("font").value;
     const attachment = await interaction.options.getAttachment("attachment");
 
-    const tmpFile = "tmp/tmp.png";
+    const id = uniqid.time();
+    const tmpFile = `tmp/${id}.png`;
 
     await interaction.reply("Ok let's go !");
 
@@ -124,6 +124,7 @@ module.exports = {
           height: canvas.height / 3 - border,
         });
       }
+
       // Save TMP
       const out = fs.createWriteStream(tmpFile),
         stream = canvas.createPNGStream();
@@ -135,5 +136,6 @@ module.exports = {
     const file = new AttachmentBuilder(tmpFile);
 
     await interaction.editReply({ files: [file] });
+    fs.unlinkSync(tmpFile);
   },
 };
