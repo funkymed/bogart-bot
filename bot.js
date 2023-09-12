@@ -122,7 +122,7 @@ const allServices = [ServiceQr, ServiceLol];
 client.on(Events.MessageCreate, (message) => {
   // const channel = message.channel.name;
   const text = message.content;
-  const nickname = message.author.username;
+  const nickname = message.author.nickname;
   // skip bot message
   if (!message.author.bot) {
     // process all services
