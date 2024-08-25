@@ -1,10 +1,9 @@
 # Bogart Bot
 
-Un bot un peut bête mais utile développé par Cyril Pereira
+A somewhat silly but useful bot developed by Cyril Pereira.
 
-## Historique
-Ce bot a été crée dans les années 2000 pour IRC
-Il a été ensuite porté sur Slack avant d'etre développé pour Discord
+## History
+This bot was created in the 2000s for IRC. It was later ported to Slack before being developed for Discord.
 
 ## Intall
 
@@ -12,13 +11,21 @@ Il a été ensuite porté sur Slack avant d'etre développé pour Discord
 yarn install
 ```
 
-copiez le fichier copy.json.dist en copy.json
-Ajoutez vos clef de configuration
+Copy the .env.dist file to .env. Add your configuration keys.
 
 ## Launch bot
 
+in dev locally
+
 ```bash
-node bot.js
+yarn dev
+```
+
+for production
+
+```bash
+yarn build
+yarn start
 ```
 
 ## NLP
@@ -26,7 +33,7 @@ node bot.js
 ### train nlp with bogart data
 
 ```bash
-node train.js
+yarn train
 ```
 
 you can edit `model-train.json` tu add your own conversationnal information.
@@ -35,5 +42,5 @@ The system use multiple context, when you start a conversation, the next result 
 ### Test nlp
 
 ```bash
-node test-train.js
+yarn test
 ```

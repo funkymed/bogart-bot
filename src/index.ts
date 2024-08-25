@@ -1,4 +1,4 @@
-import { Client, Collection, Events, GatewayIntentBits } from "discord.js";
+import { Client, Events, GatewayIntentBits } from "discord.js";
 import { config } from "./config";
 import { commands } from "./commands";
 import { deployCommands } from "./deploy-commands";
@@ -30,45 +30,6 @@ client.on(Events.InteractionCreate, async (interaction) => {
     commands[commandName as keyof typeof commands].execute(interaction);
   }
 });
-
-// const commandArray = [];
-// client.commands = new Collection();
-
-// commands.forEach((command: any) => {
-//   if ("data" in command && "execute" in command) {
-//     client.commands.set(command.data.name, command);
-//     commandArray.push(command.data.toJSON());
-//   }
-// });
-
-// client.on(Events.InteractionCreate, async (interaction) => {
-//   if (!interaction.isChatInputCommand()) return;
-
-//   // console.log(`call command /${interaction.commandName}`);
-//   const command = interaction.client.commands.get(interaction.commandName);
-
-//   if (!command) {
-//     console.error(`No command matching ${interaction.commandName} was found.`);
-//     return;
-//   }
-
-//   try {
-//     await command.execute(interaction);
-//   } catch (error) {
-//     console.error(error);
-//     if (interaction.replied || interaction.deferred) {
-//       await interaction.followUp({
-//         content: "There was an error while executing this command!",
-//         ephemeral: true,
-//       });
-//     } else {
-//       await interaction.reply({
-//         content: "There was an error while executing this command!",
-//         ephemeral: true,
-//       });
-//     }
-//   }
-// });
 
 client.on(Events.MessageCreate, async (message) => {
   const text = message.content;
