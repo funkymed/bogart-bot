@@ -2,8 +2,13 @@
 
 A somewhat silly but useful bot developed by Cyril Pereira.
 
+![Bogart](./docs/assets/image.jpeg)
+
 ## History
-This bot was created in the 2000s for IRC. It was later ported to Slack before being developed for Discord.
+- In 2002 The bot was coded in Alambik for IRC. 
+- In 2016 It was ported to PHP for Slack and got a name  : Bender (Futurama ftw).
+- In 2023 a new version in Javascript (ES6) for Discord and got his name change to Bogart.
+- In 2024 TypeScript version.
 
 ## Intall
 
