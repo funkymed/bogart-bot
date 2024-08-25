@@ -1,0 +1,267 @@
+{
+  "contexts": {
+    "default": {
+      "greetings": [
+        {
+          "sentence": "ola bogart",
+          "answer": "ola %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "yo bogart",
+          "answer": "wesh wesh %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "Hey bogart",
+          "answer": "Yaaaa %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "bogart",
+          "answer": "%user_name hey mon ami !",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "salut bogart",
+          "answer": "bien le bonjour %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "hey bogart",
+          "answer": "alors %user_name depuis le temps !",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "yo bogart",
+          "answer": "alors %user_name qu'est ce que tu racontes ?",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "yo bogart",
+          "answer": "%user_name ça fait un bail dis donc",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "dit bogart",
+          "answer": "%user_name tu vas passer ta journée à dire bonjour ?",
+          "nextContext": "conversation_started"
+        }
+      ]
+    },
+    "conversation_started": {
+      "how_are_you": [
+        {
+          "sentence": "quoi de neuf ?",
+          "answer": "%user_name boah pas grand chose",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "ça va ?",
+          "answer": "%user_name que du vieux",
+          "nextContext": "conversation_started"
+        }
+      ],
+      "dating": [
+        {
+          "sentence": "tinder",
+          "answer": "%user_name moi par contre je suis libre",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "meetic",
+          "answer": "%user_name viens on s'inscrit sur tinder",
+          "nextContext": "conversation_started"
+        }
+      ],
+      "holidays": [
+        {
+          "sentence": "congé",
+          "answer": "%user_name tu pars ou ?",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "vacance",
+          "answer": "%user_name tu pars ou ?",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "vacance",
+          "answer": "%user_name tu vas partir ?",
+          "nextContext": "conversation_started"
+        }
+      ],
+      "charette": [
+        {
+          "sentence": "je suis charette",
+          "answer": "%user_name ho no mon pauv'",
+          "nextContext": "not_happy"
+        },
+        {
+          "sentence": "charette",
+          "answer": "que dire... faut pas",
+          "nextContext": "not_happy"
+        },
+        {
+          "sentence": "je vais devoir charetter",
+          "answer": "et voilà ça recommence",
+          "nextContext": "not_happy"
+        }
+      ],
+      "beer": [
+        {
+          "sentence": "biere",
+          "answer": "moi j'aime bien la biere :beer: !",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "beer",
+          "answer": "%user_name tu me remets la même stp",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "binouze",
+          "answer": "%user_name va bosser c'est pas l'heure",
+          "nextContext": "conversation_started"
+        }
+      ],
+      "taiwan": [
+        {
+          "sentence": "taipei",
+          "answer": "et voilà med va encore parler de Taiwan",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "taiwan",
+          "answer": "et voilà med va encore parler de Taiwan",
+          "nextContext": "conversation_started"
+        }
+      ],
+      "south_america": [
+        {
+          "sentence": "bresil",
+          "answer": "bondia %user_name do brasil",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "argentine",
+          "answer": "je ne peux pas piffrer les argentins depuis la coupe du monde",
+          "nextContext": "conversation_started"
+        }
+      ],
+      "korea": [
+        {
+          "sentence": "corée",
+          "answer": "la chi corée ?",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "corée",
+          "answer": "les BTS viennent de là bas il me semble, un groupe de ouf malade, ils sont 153",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "corée",
+          "answer": "j'ai pas le temps de regarder netflix j'ai 35 séries coréenne a terminer avant",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "corée",
+          "answer": "c'est devenu à la mode la corée, j'aime plus",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "kpop",
+          "answer": "je m'y connais un peu en kpop",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "kpop",
+          "answer": "la kpop c'était mieux avant, maintenant c'est mainstream",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "kpop",
+          "answer": "tu connais la funk ? la funkpop !",
+          "nextContext": "conversation_started"
+        }
+      ],
+      "bye": [
+        {
+          "sentence": "a+",
+          "answer": "tcho %user_name",
+          "nextContext": "default"
+        },
+        {
+          "sentence": "a++",
+          "answer": "tcho %user_name",
+          "nextContext": "default"
+        },
+        {
+          "sentence": "bye",
+          "answer": "ciao %user_name",
+          "nextContext": "default"
+        },
+        {
+          "sentence": "dodo",
+          "answer": "bonne nuit %user_name",
+          "nextContext": "default"
+        }
+      ]
+    },
+    "not_happy": {
+      "insult": [
+        {
+          "sentence": "tu fais chier",
+          "answer": "d'accord %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "mourrir",
+          "answer": "pardon %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "stop",
+          "answer": "d'accord %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "arrete",
+          "answer": "d'accord %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "ferme là",
+          "answer": "d'accord %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "tg",
+          "answer": "pardon %user_name",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "bogart ta gueule",
+          "answer": "%user_name oulala t'es de mauvais poil",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "ta gueule",
+          "answer": "on a affaire au président de Discord les amis",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "ta gueule bogart",
+          "answer": "attention le boss est dans la place",
+          "nextContext": "conversation_started"
+        },
+        {
+          "sentence": "ferme la bogart",
+          "answer": "hoho, alerte aux gogoles les enfants",
+          "nextContext": "conversation_started"
+        }
+      ]
+    }
+  }
+}

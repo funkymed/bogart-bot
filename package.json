@@ -1,0 +1,37 @@
+{
+  "name": "bogart-bot",
+  "version": "2.0.0",
+  "description": "",
+  "author": "Cyril Pereira",
+  "license": "ISC",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "train": "tsx ./src/nlp-train.ts",
+    "test": "tsx ./src/nlp-test.ts",
+    "start": "node dist/index.js",
+    "copy-assets": "cp -rv ./src/assets ./dist/",
+    "build": "tsup src/index.ts --minify && npm run copy-assets"
+  },
+  "dependencies": {
+    "axios": "^1.7.5",
+    "canvas": "^2.11.2",
+    "canvas-txt": "^4.1.1",
+    "node-canvas-text": "^1.0.2",
+    "cli-color": "^2.0.4",
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "node-nlp": "^4.27.0",
+    "node-storage": "^0.0.9",
+    "uuid": "^10.0.0",
+    "sleep": "^6.3.0",
+    "yaml": "^2.5.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.2.4",
+    "tsx": "^4.18.0",
+    "typescript": "^5.5.4"
+  },
+  "engines": {
+    "node": ">=18 <19"
+  }
+}
