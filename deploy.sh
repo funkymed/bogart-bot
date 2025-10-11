@@ -79,18 +79,18 @@ fi
 # Vérifier les modèles Ollama
 echo ""
 echo "🤖 Vérification des modèles LLM..."
-if docker exec ollama ollama list | grep -q "llama3.2:1b"; then
+if docker exec bogart-ollama ollama list | grep -q "llama3.2:1b"; then
     echo -e "${GREEN}✅ llama3.2:1b installé${NC}"
 else
     echo -e "${YELLOW}⚠️  llama3.2:1b manquant, téléchargement...${NC}"
-    docker exec ollama ollama pull llama3.2:1b
+    docker exec bogart-ollama ollama pull llama3.2:1b
 fi
 
-if docker exec ollama ollama list | grep -q "nomic-embed-text"; then
+if docker exec bogart-ollama ollama list | grep -q "nomic-embed-text"; then
     echo -e "${GREEN}✅ nomic-embed-text installé${NC}"
 else
     echo -e "${YELLOW}⚠️  nomic-embed-text manquant, téléchargement...${NC}"
-    docker exec ollama ollama pull nomic-embed-text
+    docker exec bogart-ollama ollama pull nomic-embed-text
 fi
 
 # Vérifier .env

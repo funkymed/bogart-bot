@@ -25,13 +25,13 @@ export class MessageOrchestrator {
   private isInitialized = false;
 
   constructor(
-    ollamaUrl: string = 'http://localhost:11434',
-    chromaUrl: string = 'http://localhost:8000'
+    ollamaUrl: string = process.env.OLLAMA_URL || 'http://localhost:11434',
+    chromaUrl: string = process.env.CHROMA_URL || 'http://localhost:8000'
   ) {
     console.log('[MessageOrchestrator] Initializing...');
 
-    // Créer les services de base (1b = plus rapide, fallback RAG compense)
-    this.llmService = new OllamaLLMService('llama3.2:1b', ollamaUrl);
+    // Créer les services de base (3b = meilleur équilibre qualité/vitesse en prod)
+    this.llmService = new OllamaLLMService(process.env.OLLAMA_MODEL || 'llama3.2:3b', ollamaUrl);
     this.ragService = new RAGService(chromaUrl, ollamaUrl);
 
     // Créer les composants core

@@ -6,8 +6,8 @@ export class OllamaLLMService {
   private readonly baseUrl: string;
 
   constructor(
-    modelName: string = 'llama3.2:1b',
-    baseUrl: string = 'http://localhost:11434'
+    modelName: string = process.env.OLLAMA_MODEL || 'llama3.2:3b',
+    baseUrl: string = process.env.OLLAMA_URL || 'http://localhost:11434'
   ) {
     this.modelName = modelName;
     this.baseUrl = baseUrl;

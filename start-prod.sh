@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 
 # 1. Démarrer Docker
 echo "🐳 Démarrage des services Docker..."
-docker-compose up -d
+docker compose up -d
 
 # Attendre que les services soient prêts
 echo "⏳ Attente du démarrage des services (20s)..."
@@ -42,13 +42,36 @@ fi
 
 echo ""
 
-# 2. Indexer RAG
-echo "📚 Indexation de la base de connaissances..."
-yarn tsx scripts/reindex-rag.ts
+# 2. Vérifier et télécharger les modèles Ollama
+echo "🤖 Vérification des modèles Ollama..."
+
+# Modèle embeddings (RAG)
+if docker exec bogart-ollama ollama list 2>/dev/null | grep -q "nomic-embed-text"; then
+    echo -e "${GREEN}✅ nomic-embed-text (embeddings) déjà présent${NC}"
+else
+    echo -e "${YELLOW}📥 Téléchargement de nomic-embed-text (~274MB)...${NC}"
+    docker exec bogart-ollama ollama pull nomic-embed-text
+    echo -e "${GREEN}✅ nomic-embed-text téléchargé${NC}"
+fi
+
+# Modèle LLM principal
+if docker exec bogart-ollama ollama list 2>/dev/null | grep -q "llama3.2:3b"; then
+    echo -e "${GREEN}✅ llama3.2:3b (LLM) déjà présent${NC}"
+else
+    echo -e "${YELLOW}📥 Téléchargement de llama3.2:3b (~2GB)...${NC}"
+    docker exec bogart-ollama ollama pull llama3.2:3b
+    echo -e "${GREEN}✅ llama3.2:3b téléchargé${NC}"
+fi
 
 echo ""
 
-# 3. Démarrer avec PM2
+# 3. Indexer RAG
+echo "📚 Indexation de la base de connaissances..."
+tsx scripts/reindex-rag.js
+
+echo ""
+
+# 4. Démarrer avec PM2
 echo "🚀 Démarrage du bot avec PM2..."
 
 # Vérifier si PM2 est installé
@@ -84,7 +107,7 @@ echo "  pm2 stop bogart         # Arrêter"
 echo "  pm2 monit               # Monitoring"
 echo ""
 echo "Services Docker :"
-echo "  docker-compose ps       # État des containers"
+echo "  docker compose ps       # État des containers"
 echo "  docker logs ollama      # Logs Ollama"
 echo "  docker logs chromadb    # Logs ChromaDB"
 echo ""
