@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod:*)",
+      "Bash(awk:*)",
+      "Bash(make check-docker:*)",
+      "Bash(make check-docker-compose:*)",
+      "Bash(make:*)",
+      "Bash(docker compose:*)",
+      "Bash(yarn add:*)",
+      "Bash(yarn build)",
+      "Bash(docker exec:*)",
+      "Bash(yarn install)",
+      "Bash(find:*)",
+      "Bash(docker ps:*)",
+      "Bash(curl:*)",
+      "Bash(docker restart:*)",
+      "Bash(tsx scripts/reindex-rag.ts:*)",
+      "Bash(yarn tsx:*)",
+      "Bash(python3:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker stats:*)",
+      "Bash(docker-compose:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(time curl:*)",
+      "Bash(pkill:*)",
+      "Bash(node:*)",
+      "Bash(rm:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

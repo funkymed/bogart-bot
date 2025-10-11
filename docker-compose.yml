@@ -1,0 +1,79 @@
+services:
+  # Ollama - LLM Local
+  ollama:
+    image: ollama/ollama:latest
+    container_name: bogart-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - bogart-network
+    deploy:
+      resources:
+        limits:
+          memory: 4G  # Augmenté pour llama3.2:3b (nécessite ~2.5GB)
+        reservations:
+          memory: 2G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ChromaDB - Base Vectorielle
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: bogart-chromadb
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - chromadb_data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    networks:
+      - bogart-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v2/heartbeat"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # Bogart Bot (optionnel - peut tourner hors Docker)
+  # Décommentez si vous voulez tout containeriser
+  # bogart:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: bogart-bot
+  #   restart: unless-stopped
+  #   depends_on:
+  #     ollama:
+  #       condition: service_healthy
+  #     chromadb:
+  #       condition: service_healthy
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - NODE_ENV=production
+  #     - OLLAMA_BASE_URL=http://ollama:11434
+  #     - CHROMA_URL=http://chromadb:8000
+  #   volumes:
+  #     - ./storage:/app/storage
+  #   networks:
+  #     - bogart-network
+
+volumes:
+  ollama_data:
+    driver: local
+  chromadb_data:
+    driver: local
+
+networks:
+  bogart-network:
+    driver: bridge

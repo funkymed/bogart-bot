@@ -1,0 +1,202 @@
+# Keywords pour réactions spontanées de Bogart
+# Le bot détecte ces mots dans les conversations et réagit avec son style
+
+# IA & Tech moderne
+chatgpt:
+  keywords: [chatgpt, chat gpt, gpt-4, gpt-3, openai]
+  responses:
+    - ChatGPT c'est juste de l'autocomplete sous stéroïdes
+    - Le générateur de code qui compile jamais du premier coup
+    - OpenAI ou comment vendre du hype à prix d'or
+
+copilot:
+  keywords: [copilot, github copilot, assistant ia]
+  responses:
+    - Copilot c'est Stack Overflow qui fait semblant d'être intelligent
+    - Un assistant qui code mieux que toi, ça fait mal à l'ego hein
+
+midjourney:
+  keywords: [midjourney, dall-e, stable diffusion, ai art]
+  responses:
+    - L'IA générative c'est cool mais ça remplacera jamais un pixel artist
+    - Générer des images c'est bien, les faire à la main c'est mieux
+
+# Crypto & NFT
+nft:
+  keywords: [nft, nfts, crypto art, opensea]
+  responses:
+    - Les NFT, la plus grosse arnaque depuis les pyramides égyptiennes
+    - Des JPEG à 10k balles, quelle époque formidable
+    - Right-click Save As intensifies
+
+crypto:
+  keywords: [crypto, bitcoin, ethereum, blockchain]
+  responses:
+    - Blockchain c'est une base de données lente qui bouffe une centrale nucléaire
+    - Les cryptobros sont les Témoins de Jéhovah de la tech
+    - Tu mines encore ? En 2025 ? Vraiment ?
+
+web3:
+  keywords: [web3, metaverse, metavers]
+  responses:
+    - Le metaverse c'est Second Life avec plus de budget marketing
+    - Web3 c'est du Web 2.0 avec plus de buzzwords et moins de sens
+
+# Gaming
+minecraft:
+  keywords: [minecraft, creeper]
+  responses:
+    - Minecraft c'est des cubes mais au moins c'est honnête
+    - Le jeu qui apprend aux gosses à miner du Bitcoin virtuellement
+    - Redstone c'est du code déguisé en blocs
+
+fortnite:
+  keywords: [fortnite, epic games]
+  responses:
+    - Fortnite c'est sympa si t'as 12 ans
+    - Battle royale et danses ridicules, la recette du succès
+    - Epic Games qui achète tout le monde avec son Unreal Engine money
+
+roblox:
+  keywords: [roblox]
+  responses:
+    - Roblox c'est Minecraft qui a fondu au soleil
+    - Le metaverse avant le metaverse, mais en moins cher
+
+doom:
+  keywords: [doom, doom eternal]
+  responses:
+    - Doom tournait sur un 386 avec 4 Mo de RAM, de la magie noire pure
+    - Id Software c'était des dieux du code en assembleur
+    - Doom sur une calculatrice, une imprimante, un frigo, partout
+
+# Machines rétro
+amiga:
+  keywords: [amiga, amiga 500, amiga 1200]
+  responses:
+    - Amiga master race, les vrais savent
+    - Le Copper et le Blitter, une paire de légendes
+    - Paula faisait chanter les pixels comme personne
+
+c64:
+  keywords: [c64, commodore 64, commodore]
+  responses:
+    - Le C64, 64 Ko de RAM et une scène demo immortelle
+    - Le SID chip c'est le meilleur synthé jamais créé fight me
+    - Rob Hubbard sur C64, le Mozart de l'ère 8-bit
+
+atari:
+  keywords: [atari, atari st, atari 2600]
+  responses:
+    - Atari ST le concurrent de l'Amiga mais en moins stylé
+    - Atari 2600 et E.T., le trauma de toute une génération
+    - Atari c'était bien avant de tout foirer
+
+# Langages de programmation
+javascript:
+  keywords: [javascript, js, node, nodejs]
+  responses:
+    - JavaScript c'est le langage qui a réussi par accident
+    - Node.js ou comment faire du JS côté serveur et regretter
+    - JS et ses 300 frameworks par semaine, quelle stabilité
+
+python:
+  keywords: [python, django, flask]
+  responses:
+    - Python c'est cool mais les espaces obligatoires c'est de la torture
+    - Le langage préféré des data scientists qui savent pas vraiment coder
+    - Import antigravity, le meilleur easter egg ever
+
+php:
+  keywords: [php, laravel, symfony]
+  responses:
+    - PHP c'est moche mais ça fait tourner la moitié du web
+    - Laravel a sauvé PHP de lui-même
+    - PHP 8 c'est presque un vrai langage moderne
+
+rust:
+  keywords: [rust, rustlang]
+  responses:
+    - Rust c'est bien si t'aimes passer 3h à convaincre le compilateur
+    - Memory safety sans garbage collector, respect
+    - Les rustaceans sont les vegans de la programmation
+
+# Outils & Editors
+vscode:
+  keywords: [vscode, vs code, visual studio code]
+  responses:
+    - VS Code c'est Electron mais au moins c'est utile
+    - Microsoft qui fait de l'open source, quelle époque
+    - Extensions VS Code c'est comme des addons WoW, t'en as 50 et tu sais pas pourquoi
+
+vim:
+  keywords: [vim, neovim, nvim]
+  responses:
+    - Vim c'est bien si t'aimes souffrir pour sortir de l'éditeur
+    - Comment quitter Vim ? Demande à Stack Overflow
+    - Neovim c'est Vim qui a enfin admis que Lua existe
+
+emacs:
+  keywords: [emacs]
+  responses:
+    - Emacs c'est un OS déguisé en éditeur de texte
+    - La guerre Vim vs Emacs dure depuis plus longtemps que ma vie
+    - Emacs c'est puissant mais t'as besoin d'un doctorat pour l'utiliser
+
+# Culture & Lifestyle
+pizza:
+  keywords: [pizza, pizzas]
+  responses:
+    - Pizza froide au petit-déj, le menu des champions
+    - La pizza c'est un légume selon le gouvernement US, true story
+    - Pineapple sur pizza ? Bannis-toi toi-même
+
+cafe:
+  keywords: [café, coffee, caféine]
+  responses:
+    - Le café c'est du jus de debug liquide
+    - Café noir sans sucre sinon t'es pas un vrai dev
+    - La caféine c'est la vraie stack overflow
+
+redbull:
+  keywords: [red bull, redbull, energy drink]
+  responses:
+    - Red Bull + pizza froide = petit-déj de dev
+    - Les energy drinks c'est de l'essence pour humains
+    - Red Bull gives you wings and cardiac problems
+
+stackoverflow:
+  keywords: [stack overflow, stackoverflow]
+  responses:
+    - Stack Overflow a sauvé plus de carrières que n'importe quelle école
+    - Copy-paste depuis SO c'est pas tricher c'est de la réutilisation de code
+    - Marked as duplicate, l'équivalent digital du friendzone
+
+github:
+  keywords: [github, git, gitlab]
+  responses:
+    - Git c'est génial sauf quand tu fais un git push --force sur main
+    - GitHub c'est devenu le Facebook des devs
+    - GitLab c'est GitHub pour les hipsters
+
+# Demoscene & Events
+revision:
+  keywords: [revision, demoparty]
+  responses:
+    - Revision à Pâques en Allemagne, le pèlerinage annuel
+    - La plus grosse demoparty d'Europe, respect total
+    - Si t'es jamais allé à Revision, t'as raté ta vie de scener
+
+pouet:
+  keywords: [pouet, pouet.net]
+  responses:
+    - Pouet.net la base de données ultime des démos
+    - Un site qui a pas bougé depuis 2005 et c'est parfait comme ça
+    - Piggie awards sur Pouet, les Oscars de la demoscene
+
+shadertoy:
+  keywords: [shadertoy]
+  responses:
+    - Shadertoy c'est de la magie noire en GLSL
+    - Iq et ses shaders à 280 caractères, un génie
+    - Comment ils font ça en un seul fragment shader ? Sorcellerie

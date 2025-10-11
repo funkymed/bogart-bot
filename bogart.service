@@ -1,0 +1,35 @@
+[Unit]
+Description=Bogart Discord Bot v2
+Documentation=https://github.com/cyrilpereira/bogart-typescript
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=YOUR_USER
+Group=YOUR_GROUP
+WorkingDirectory=/path/to/bogart-typescript
+
+# Environnement
+Environment="NODE_ENV=production"
+Environment="PATH=/usr/bin:/usr/local/bin:/home/YOUR_USER/.nvm/versions/node/v18.x.x/bin"
+
+# Commande de démarrage
+ExecStart=/usr/bin/yarn start
+
+# Restart automatique
+Restart=always
+RestartSec=10
+StartLimitInterval=60
+StartLimitBurst=3
+
+# Logs
+StandardOutput=append:/path/to/bogart-typescript/bot.log
+StandardError=append:/path/to/bogart-typescript/bot.log
+
+# Sécurité
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -5,4 +5,4 @@ storage
 tmp
 !tmp/.gitkeep
 dist
-./model.nlp
+model.nlp

@@ -1,0 +1,85 @@
+# Lexique Demoscene pour Bogart Bot
+# Utilisé pour le RAG (Retrieval Augmented Generation)
+
+# Termes techniques
+technical:
+  - Le raymarching c'est une technique de rendu 3D en temps réel avec des SDFs
+  - Les shaders GLSL permettent de créer des effets visuels directement sur le GPU
+  - Un SDF (Signed Distance Field) est une fonction mathématique pour décrire des formes 3D
+  - Le demoscene utilise beaucoup l'assembleur pour optimiser le code au maximum
+  - Les intros 4K sont des démos qui tiennent dans 4096 octets
+  - Le procedural generation permet de créer du contenu sans stocker de données
+  - Les demotools sont des outils pour créer des démos plus facilement
+  - Shadertoy est une plateforme en ligne pour partager des shaders GLSL
+
+# Culture demoscene
+culture:
+  - Revision est le plus gros demoparty en Europe, ça se passe à Pâques en Allemagne
+  - Pouet.net est le site de référence pour trouver et noter les démos
+  - L'Amiga 500 est la machine culte du demoscene des années 90
+  - Les demoparties sont des événements où on code et on projette des démos
+  - Les demogroups sont des collectifs d'artistes et de codeurs
+  - Farbrausch est un groupe légendaire allemand, créateurs de fr-08 .the .product
+  - Chaos Theory de Conspiracy est une démo Amiga mythique
+  - Second Reality de Future Crew a marqué l'histoire du demoscene PC
+
+# Slang et expressions
+slang:
+  - Coder une démo c'est faire un truc visuel en temps réel, pas un jeu
+  - Un compo c'est une compétition pendant un demoparty
+  - Greets à tous les sceners !
+  - On dit pas un hack, on dit une prod
+  - Le livecoding c'est coder en direct devant le public
+  - Une wild demo c'est une démo sur plateforme exotique ou originale
+
+# Machines et plateformes
+platforms:
+  - L'Amiga avait des coprocesseurs comme le Copper et le Blitter
+  - L'Atari ST était le concurrent de l'Amiga dans les années 80
+  - Les démos PC modernes utilisent DirectX ou OpenGL
+  - La Game Boy est une plateforme cool pour les intros 4K
+  - L'Amstrad CPC a une scène active avec des effets improbables
+
+# Specs techniques Amiga
+amiga_specs:
+  - L'Amiga 500 avait 512 Ko de RAM (Chip RAM), extensible à 1 Mo
+  - L'Amiga 500 utilisait un processeur Motorola 68000 cadencé à 7.16 MHz
+  - L'Amiga avait des coprocesseurs comme le Copper et le Blitter
+  - L'Amiga avait une résolution standard de 320x256 en PAL, 320x200 en NTSC
+  - Le chipset OCS de l'Amiga 500 pouvait afficher 32 couleurs simultanées en low-res
+  - L'Amiga 500 pouvait afficher jusqu'à 4096 couleurs en HAM mode
+  - Le Blitter de l'Amiga permettait de déplacer des sprites à 60 fps
+  - Le Copper était un coprocesseur qui modifiait les registres graphiques en temps réel
+  - Paula était le chip audio de l'Amiga avec 4 canaux 8-bit PCM
+
+# Specs techniques C64
+c64_specs:
+  - Le Commodore 64 avait 64 Ko de RAM, d'où son nom
+  - Le C64 utilisait un processeur MOS 6510 cadencé à 1 MHz
+  - Le SID (Sound Interface Device) du C64 avait 3 voies audio programmables
+  - Le VIC-II du C64 gérait la vidéo avec une résolution de 320x200 pixels
+  - Le C64 pouvait afficher 16 couleurs simultanées
+
+# Personnalités et groupes
+people:
+  - Navis de ASD est un des meilleurs codeurs de démos modernes
+  - Iq est une légende, codeur chez Rgba et créateur de Shadertoy
+  - Gargaj est un scener hongrois, organisateur de Revision
+  - Chaos Theory de Conspiracy a révolutionné la scène Amiga
+  - Andromeda Software Development (ASD) fait des démos PC incroyables
+
+# Événements
+events:
+  - Revision se passe chaque année à Pâques à Saarbrücken
+  - Assembly en Finlande est un des plus vieux demoparties
+  - Evoke à Cologne est un demoparty très sympa
+  - La Breakpoint était un demoparty mythique, remplacé par Revision
+  - Function à Budapest est un petit demoparty de qualité
+
+# Gaming moderne (opinions cyniques)
+modern_gaming:
+  - Fortnite c'est sympa si t'as 12 ans
+  - Fortnite c'est un battle royale avec des danses ridicules
+  - Minecraft c'est des cubes mais au moins c'est honnête
+  - Doom tournait sur un 386 avec 4 Mo de RAM, de la magie noire pure
+  - GTA Vice City c'est le meilleur GTA fight me

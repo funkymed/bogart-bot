@@ -49,37 +49,48 @@ function sleep(ms: number): Promise<void> {
   });
 }
 
+// Mapping des catégories vers les fichiers YAML
 const dictionnaryFiles: { [key: string]: string } = {
-  bend01: "texts/01.yml",
-  bend02: "texts/02.yml",
-  bend03: "texts/03.yml",
-  bend04: "texts/04.yml",
-  bend05: "texts/05.yml",
-  star: "texts/star.yml",
-  lieu: "texts/lieu.yml",
-  tv: "texts/tv.yml",
-  adj: "texts/adj.yml",
-  phrase: "texts/phrase.yml",
-  jcvd: "texts/jcvd.yml",
-  citation: "texts/citation.yml",
+  demoscene: "texts/demoscene.yml",
+  personality: "texts/personality.yml",
+  "dev-web": "texts/dev-web.yml",
+  "droit-travail": "texts/droit-travail.yml",
+  politique: "texts/politique.yml",
 };
 
-const dictionnary: any = [];
-let dicoLoaded = false;
+// Cache des dictionnaires chargés
+const dictionnaryCache: { [key: string]: any } = {};
 
-const getDictionnary = () => {
-  if (!dicoLoaded) {
-    for (let k in dictionnaryFiles) {
-      if (dictionnaryFiles.hasOwnProperty(k)) {
-        const fileName = `${getStaticPath()}/${dictionnaryFiles[k]}`;
-        const file = fs.readFileSync(fileName, "utf8");
-        dictionnary[k] = YAML.parse(file);
-      }
-    }
-    dicoLoaded = true;
-  } else {
+/**
+ * Charge un dictionnaire YAML par catégorie
+ * @param category - Nom de la catégorie (ex: "demoscene")
+ * @returns Le contenu du dictionnaire ou null si non trouvé
+ */
+const getDictionnary = (category: string): any | null => {
+  // Vérifier si déjà en cache
+  if (dictionnaryCache[category]) {
+    return dictionnaryCache[category];
   }
-  return dictionnary;
+
+  // Vérifier si la catégorie existe
+  if (!dictionnaryFiles[category]) {
+    console.warn(`[getDictionnary] Unknown category: ${category}`);
+    return null;
+  }
+
+  try {
+    const fileName = `${getStaticPath()}/${dictionnaryFiles[category]}`;
+    const file = fs.readFileSync(fileName, "utf8");
+    const parsed = YAML.parse(file);
+
+    // Mettre en cache
+    dictionnaryCache[category] = parsed;
+
+    return parsed;
+  } catch (error) {
+    console.error(`[getDictionnary] Failed to load ${category}:`, error);
+    return null;
+  }
 };
 
 const getStaticPath = () => {
@@ -98,3 +109,4 @@ export {
   getDictionnary,
   getStaticPath,
 };
+

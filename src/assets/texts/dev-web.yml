@@ -1,0 +1,144 @@
+# Lexique Développement Web pour Bogart Bot
+# Utilisé pour le RAG (Retrieval Augmented Generation)
+
+# Frontend
+frontend:
+  - React est une bibliothèque JavaScript pour créer des interfaces utilisateur avec des composants réutilisables
+  - Vue.js est un framework progressif qui combine le meilleur d'Angular et React, facile à apprendre
+  - Angular est un framework complet maintenu par Google, idéal pour les grandes applications d'entreprise
+  - TypeScript ajoute le typage statique à JavaScript, réduisant les bugs et améliorant la maintenabilité
+  - Next.js est un framework React avec rendu côté serveur (SSR) et génération statique (SSG)
+  - Svelte compile les composants en JavaScript vanilla ultra-rapide, pas de virtual DOM
+  - TailwindCSS est un framework CSS utility-first pour créer des interfaces rapidement
+  - Webpack et Vite sont des bundlers pour empaqueter et optimiser le code frontend
+  - Le state management se fait avec Redux, Zustand, ou les Context API de React
+  - Les Progressive Web Apps (PWA) combinent web et natif avec service workers et manifests
+
+# Backend
+backend:
+  - Node.js permet d'exécuter du JavaScript côté serveur avec le moteur V8 de Chrome
+  - Express.js est un framework minimaliste pour créer des API REST avec Node.js
+  - NestJS est un framework TypeScript structuré inspiré d'Angular, parfait pour les grandes apps
+  - FastAPI en Python est ultra-rapide grâce à async/await et la validation automatique avec Pydantic
+  - Django est un framework Python batteries-included avec ORM, admin, et sécurité intégrée
+  - GraphQL est une alternative à REST qui permet au client de demander exactement les données nécessaires
+  - Les API REST utilisent les verbes HTTP (GET, POST, PUT, DELETE) pour manipuler des ressources
+  - WebSockets permettent une communication bidirectionnelle en temps réel entre client et serveur
+  - Les microservices découpent une app en services indépendants qui communiquent via HTTP ou messages
+  - Docker containerise les applications pour garantir la reproductibilité entre environnements
+
+# Bases de données
+databases:
+  - PostgreSQL est une base relationnelle open-source robuste avec support JSON et extensions
+  - MongoDB est une base NoSQL orientée documents qui stocke des données en JSON-like (BSON)
+  - Redis est un store clé-valeur en mémoire ultra-rapide, parfait pour le cache et les sessions
+  - MySQL/MariaDB sont des bases relationnelles populaires, MariaDB étant un fork communautaire
+  - Les ORMs comme Prisma, TypeORM ou Sequelize mappent les objets aux tables SQL
+  - Les migrations de base de données versionnent le schéma pour synchroniser dev, staging et prod
+  - Les indexes accélèrent les requêtes en créant des structures de recherche optimisées
+  - ACID garantit Atomicité, Cohérence, Isolation et Durabilité des transactions
+  - Les bases vectorielles comme Chroma ou Pinecone stockent des embeddings pour le RAG et l'IA
+
+# Authentification et sécurité
+security:
+  - JWT (JSON Web Tokens) sont des tokens signés pour authentifier sans état côté serveur
+  - OAuth 2.0 permet aux utilisateurs de se connecter via Google, GitHub, etc. sans partager leur mot de passe
+  - bcrypt et argon2 sont des algorithmes pour hasher les mots de passe de façon sécurisée
+  - Les CORS (Cross-Origin Resource Sharing) contrôlent quels domaines peuvent appeler ton API
+  - Le HTTPS chiffre les communications avec TLS/SSL, obligatoire pour toute app en prod
+  - Les attaques XSS injectent du JavaScript malveillant, évite avec sanitization et CSP
+  - Les attaques CSRF forcent l'utilisateur à faire des actions non voulues, préviens avec des tokens
+  - Les injections SQL s'évitent en utilisant des requêtes préparées ou un ORM
+  - Le rate limiting protège contre les attaques par force brute et le spam
+  - Les secrets (API keys, tokens) doivent être dans des variables d'environnement, jamais dans le code
+
+# Performance et optimisation
+performance:
+  - Le lazy loading charge les ressources à la demande pour accélérer le chargement initial
+  - Le code splitting divise le bundle JavaScript en morceaux chargés selon les besoins
+  - Les CDN (Content Delivery Networks) distribuent les assets statiques géographiquement
+  - Le cache HTTP avec Cache-Control et ETags réduit les requêtes serveur
+  - Les service workers permettent le cache offline et le background sync pour les PWA
+  - La compression gzip/brotli réduit la taille des fichiers de 70-80%
+  - Les images optimisées (WebP, AVIF) et responsive réduisent le poids des pages
+  - Le Server-Side Rendering (SSR) améliore le SEO et le temps de premier affichage
+  - Les métriques Core Web Vitals (LCP, FID, CLS) mesurent la performance perçue par l'utilisateur
+  - Le prefetching et preloading anticipent les ressources dont l'utilisateur aura besoin
+
+# DevOps et déploiement
+devops:
+  - Git est le système de contrôle de version indispensable, avec GitHub, GitLab ou Bitbucket
+  - CI/CD automatise les tests et déploiements avec GitHub Actions, GitLab CI ou Jenkins
+  - Vercel et Netlify déploient automatiquement les apps frontend à chaque commit
+  - AWS, Google Cloud et Azure sont les géants du cloud avec compute, storage et databases
+  - Les environnements (dev, staging, prod) isolent les changements avant la mise en production
+  - Docker Compose orchestre plusieurs containers en local (app, db, redis, etc.)
+  - Kubernetes (k8s) orchestre les containers en prod avec scaling automatique et load balancing
+  - Les variables d'environnement (.env) configurent l'app selon l'environnement
+  - Le monitoring avec Sentry, Datadog ou Prometheus détecte les erreurs et surveille les perfs
+  - Les logs structurés (JSON) facilitent le debug et l'analyse avec ELK ou Grafana
+
+# Testing
+testing:
+  - Les tests unitaires vérifient qu'une fonction isolée fonctionne correctement
+  - Les tests d'intégration vérifient que plusieurs composants fonctionnent ensemble
+  - Les tests E2E (end-to-end) simulent un utilisateur réel avec Playwright ou Cypress
+  - Jest est le framework de test JavaScript le plus populaire, avec mocking intégré
+  - Vitest est une alternative ultra-rapide à Jest, compatible avec Vite
+  - React Testing Library teste les composants comme un utilisateur les utilise
+  - Le TDD (Test-Driven Development) écrit les tests avant le code
+  - La couverture de code (coverage) mesure le % de code testé, vise 80%+
+  - Les mocks simulent des dépendances externes (API, DB) pour tester en isolation
+  - Les tests de performance avec k6 ou Artillery vérifient que l'app tient la charge
+
+# Architecture et patterns
+architecture:
+  - MVC (Model-View-Controller) sépare les données, la logique et l'affichage
+  - L'architecture hexagonale (ports & adapters) isole la logique métier des dépendances
+  - Le pattern Repository abstrait l'accès aux données pour faciliter les tests
+  - SOLID sont 5 principes pour du code maintenable (Single Responsibility, Open/Closed, etc.)
+  - DRY (Don't Repeat Yourself) évite la duplication de code
+  - KISS (Keep It Simple, Stupid) privilégie la simplicité à la complexité
+  - Le pattern Singleton garantit une seule instance d'une classe
+  - Le pattern Factory crée des objets sans exposer la logique de création
+  - Le pattern Observer permet à des objets de s'abonner aux changements d'état
+  - Le clean code privilégie la lisibilité avec des noms explicites et des fonctions courtes
+
+# API et intégrations
+apis:
+  - REST utilise HTTP et JSON pour exposer des ressources via des endpoints
+  - GraphQL permet au client de spécifier exactement les données nécessaires en une requête
+  - Les webhooks notifient ton app quand un événement se produit chez un service tiers
+  - gRPC utilise Protocol Buffers et HTTP/2 pour des APIs ultra-rapides entre microservices
+  - Postman et Insomnia sont des outils pour tester et documenter les APIs
+  - Swagger/OpenAPI génère une documentation interactive pour les APIs REST
+  - Les API keys authentifient les clients, à passer dans les headers ou query params
+  - Le versioning d'API (/v1/, /v2/) permet d'évoluer sans casser les clients existants
+  - Le throttling limite le nombre de requêtes par utilisateur pour protéger l'API
+  - Les SDKs (Software Development Kits) facilitent l'intégration d'APIs tierces
+
+# Client lourd et desktop
+client_lourd:
+  - Electron permet de créer des apps desktop avec HTML/CSS/JS (VS Code, Slack, Discord)
+  - Tauri est une alternative à Electron plus légère et sécurisée en Rust
+  - Qt est un framework C++ multiplateforme pour des apps desktop performantes
+  - .NET MAUI (ex-Xamarin) crée des apps desktop et mobile en C#
+  - JavaFX et Swing permettent de créer des interfaces desktop en Java
+  - WPF (Windows Presentation Foundation) crée des apps Windows riches en XAML/C#
+  - Les apps Electron communiquent entre main process (Node) et renderer (browser) via IPC
+  - Le packaging avec electron-builder crée des installeurs pour Windows, Mac et Linux
+  - L'auto-update permet de mettre à jour l'app automatiquement avec electron-updater
+  - Les apps desktop peuvent accéder au système de fichiers, contrairement au web
+
+# Frameworks et langages modernes
+modern_tech:
+  - Rust est un langage système ultra-rapide et memory-safe, idéal pour la performance critique
+  - Go (Golang) est simple et performant pour les backends et microservices concurrents
+  - Deno est une alternative à Node.js avec TypeScript natif et sécurité par défaut
+  - Bun est un runtime JavaScript ultra-rapide qui remplace Node, npm et Webpack en un
+  - Astro génère des sites statiques ultra-rapides en chargeant zéro JavaScript par défaut
+  - Remix est un framework React full-stack axé sur les web standards et la performance
+  - SolidJS est un framework réactif ultra-rapide sans virtual DOM, comme Svelte
+  - Qwik repousse l'exécution JavaScript au maximum pour des sites instantanés
+  - Turbo (de Vercel) accélère les monorepos avec du caching intelligent
+  - HTMX permet de créer des apps interactives en retournant du HTML depuis le serveur

@@ -1,0 +1,39 @@
+🛑 Arrêt des instances existantes...
+✅ Tous les processus arrêtés
+
+🚀 Démarrage du bot en mode dev...
+yarn run v1.22.22
+$ tsx watch src/index.ts
+[MessageOrchestrator] Initializing...
+[OllamaLLMService] Initialized with model: llama3.2:1b (native API)
+[OllamaLLMService] Warming up model...
+[OllamaLLMService] Generating response (temp=0.8, maxTokens=1, timeout=30000ms)...
+[OllamaLLMService] Prompt length: 5 chars
+The 'path' argument is deprecated. Please use 'ssl', 'host', and 'port' instead
+[RAGService] Initialized with ChromaDB: http://localhost:8000
+[PersonalityEngine] Initialized with demoscene personality
+[MemoryManager] Initialized
+[MemoryManager] Loaded 1 user memories
+[MessageAnalyzer] Initialized with bot name: bogart
+[KeywordEngine] Loaded 18 keyword categories
+[KeywordEngine] Initialized with 18 keyword categories
+[KeywordEngine] RAG service attached
+[SmallTalkHandler] Initialized
+[DeepQuestionHandler] Initialized
+[MessageOrchestrator] Components created
+[OllamaLLMService] ✅ Response generated in 267ms
+[OllamaLLMService] ✅ Model warmed up and ready
+Discord bot is ready! 🤖
+Initializing AI services...
+[MessageOrchestrator] Starting initialization...
+[MessageOrchestrator] Checking Ollama...
+[MessageOrchestrator] ✓ Ollama OK
+[MessageOrchestrator] Checking ChromaDB...
+[MessageOrchestrator] ✓ ChromaDB OK
+[MessageOrchestrator] Initializing RAG collection...
+[RAGService] Collection "bogart-lexicon" ready
+[MessageOrchestrator] ✓ Lexicon already indexed (51 documents)
+[MessageOrchestrator] ✅ Initialization complete!
+✅ AI services initialized successfully!
+error Command failed with signal "SIGKILL".
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

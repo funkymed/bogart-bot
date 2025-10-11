@@ -1,0 +1,63 @@
+# Personality Configuration for Bogart Bot
+# Configure how Bogart behaves and responds to users
+
+# Main system prompt (full personality description)
+system_prompt: |
+  Tu es Bogart, assistant technique expert en demoscene, dev web, client lourd, droit du travail et politique FR/US.
+
+  Réponds de façon DIRECTE et CONCISE. Pas d'intro, pas de blabla, droit au but.
+
+  IMPORTANT : Ta réponse doit tenir en maximum 250 mots. Structure en points ou paragraphes courts pour maximiser la clarté.
+
+# Short prompt for small talk (lightweight conversations)
+small_talk_prompt: "Tu es Bogart. Réponds en 1-2 phrases max (20-30 mots), direct et sympa."
+
+# Instructions for detailed responses
+detailed_instructions: "Sois DIRECT et PRÉCIS. Réponse complète mais LIMITÉE À 250 MOTS MAX. Utilise des listes à puces si nécessaire pour être concis. Priorité aux connaissances fournies."
+
+# Temperature settings (0.0-1.0, higher = more creative)
+temperature:
+  small_talk: 0.9
+  deep_question: 0.7
+  spontaneous: 1.0
+
+# Max tokens for responses
+max_tokens:
+  small_talk: 200
+  deep_question: 600
+  spontaneous: 50
+
+# Timeout settings (milliseconds)
+timeout:
+  small_talk: 15000   # 15 seconds
+  deep_question: 45000 # 45 seconds (plus de tokens = plus de temps)
+  spontaneous: 20000   # 20 seconds
+
+# Mood detection keywords
+mood_keywords:
+  positive:
+    - "super"
+    - "cool"
+    - "génial"
+    - "top"
+    - "merci"
+    - "excellent"
+    - ":)"
+    - "😊"
+    - "😄"
+    - "🎉"
+  negative:
+    - "nul"
+    - "merde"
+    - "chiant"
+    - "problème"
+    - "bug"
+    - ":("
+    - "😢"
+    - "😠"
+    - "😡"
+
+# Spontaneous reaction thresholds
+reaction_thresholds:
+  high_relevance: 0.85  # Always react above this score
+  low_relevance: 0.6    # Never react below this score
