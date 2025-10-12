@@ -55,12 +55,12 @@ else
 fi
 
 # Modèle LLM principal
-if docker exec bogart-ollama ollama list 2>/dev/null | grep -q "llama3.2:3b"; then
-    echo -e "${GREEN}✅ llama3.2:3b (LLM) déjà présent${NC}"
+if docker exec bogart-ollama ollama list 2>/dev/null | grep -q "llama3.2:1b"; then
+    echo -e "${GREEN}✅ llama3.2:1b (LLM) déjà présent${NC}"
 else
-    echo -e "${YELLOW}📥 Téléchargement de llama3.2:3b (~2GB)...${NC}"
-    docker exec bogart-ollama ollama pull llama3.2:3b
-    echo -e "${GREEN}✅ llama3.2:3b téléchargé${NC}"
+    echo -e "${YELLOW}📥 Téléchargement de llama3.2:1b (~2GB)...${NC}"
+    docker exec bogart-ollama ollama pull llama3.2:1b
+    echo -e "${GREEN}✅ llama3.2:1b téléchargé${NC}"
 fi
 
 echo ""
@@ -89,7 +89,7 @@ pm2 stop bogart 2>/dev/null || true
 pm2 delete bogart 2>/dev/null || true
 
 # Démarrer le bot
-pm2 start dist/index.js --name bogart
+pm2 start dist/src/index.js --name bogart
 
 # Sauvegarder la config PM2
 pm2 save

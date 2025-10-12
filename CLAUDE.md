@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Bogart Bot is a Discord bot with conversational AI capabilities using NLP (Natural Language Processing). Originally coded in 2002 for IRC, it evolved through PHP/Slack (2016), JavaScript/Discord (2023), and now TypeScript (2024).
+Bogart Bot is a Discord bot with conversational AI capabilities using local LLM (Ollama) and RAG (Retrieval Augmented Generation). Originally coded in 2002 for IRC, it evolved through PHP/Slack (2016), JavaScript/Discord (2023), and now TypeScript with AI (2024).
 
 ## Development Commands
 
@@ -34,10 +34,9 @@ yarn build      # Compile TypeScript with tsup and copy assets
 yarn start      # Run compiled code
 ```
 
-**NLP Training:**
+**RAG Indexing:**
 ```bash
-yarn train      # Train NLP model from src/model-train.json
-yarn test       # Test NLP model
+yarn tsx scripts/reindex-rag.ts  # Reindex ChromaDB knowledge base
 ```
 
 ## Architecture
@@ -46,48 +45,45 @@ yarn test       # Test NLP model
 
 **Entry Point** ([src/index.ts](src/index.ts))
 - Initializes Discord.js client with guild, message, and DM intents
-- Handles three event types:
-  1. `ClientReady` - Bot initialization
-  2. `GuildCreate` - Auto-deploys slash commands to new guilds
-  3. `InteractionCreate` - Routes slash commands
-  4. `MessageCreate` - Processes natural language messages through Services
+- Handles Discord events:
+  1. `ClientReady` - Bot initialization, creates AI services
+  2. `MessageCreate` - Routes messages through MessageOrchestrator
 
-**Services Architecture** ([src/services/](src/services/))
-- All services extend `ServiceAbstract` base class
-- Services are processed sequentially; first matching service responds and breaks the loop
-- Two service types:
-  1. **Command-based** (e.g., `ServiceLol` with `!lol` trigger) - Matches command prefix
-  2. **NLP-based** (e.g., `ServiceQr`) - Always processes messages using node-nlp
+**MessageOrchestrator** ([src/core/message.orchestrator.ts](src/core/message.orchestrator.ts))
+- Routes messages to appropriate handlers:
+  1. **KeywordEngine** - Detects keywords for spontaneous reactions
+  2. **SmallTalkHandler** - Quick conversational responses
+  3. **DeepQuestionHandler** - Complex questions with RAG
+  4. **WebSearchHandler** - Web searches via MCP
 
-**Service System:**
-- Each service has a `getMessage(text: string)` method returning a response or undefined
-- Services can load YAML dictionaries from `src/assets/texts/` via `loadDictionnary()`
-- Responses are sent to Discord channel; loop exits after first non-empty response
-- Add new services to [src/services/index.ts](src/services/index.ts) exports array
+**AI Services Architecture**
+- **PersonalityEngine** ([src/ai/prompts/personality.engine.ts](src/ai/prompts/personality.engine.ts))
+  - Configurable personality via `personality.yml`
+  - Manages prompt construction and LLM interaction
+  - Handles small talk, deep questions, spontaneous reactions
 
-**Slash Commands** ([src/commands/](src/commands/))
-- Organized in subdirectories: `fun/`, `utility/`
-- Each command exports `data` (SlashCommandBuilder) and `execute(interaction)` function
-- Auto-deployed to guilds on bot join via [src/deploy-commands.ts](src/deploy-commands.ts)
-- Register new commands in [src/commands/index.ts](src/commands/index.ts)
+- **RAGService** ([src/ai/rag/rag.service.ts](src/ai/rag/rag.service.ts))
+  - ChromaDB vector database
+  - Embeddings with `nomic-embed-text`
+  - Retrieves relevant knowledge chunks
 
-### NLP System
+- **OllamaLLMService** ([src/ai/llm/ollama.service.ts](src/ai/llm/ollama.service.ts))
+  - Local LLM inference (llama3.2:3b)
+  - Streaming and non-streaming responses
+  - Configurable temperature/tokens
 
-**Context-Aware Conversations:**
-- Powered by `node-nlp` with French language support
-- Training data: `src/model-train.json` with context-based intent trees
-- Model outputs: `src/assets/models/model.nlp` and `contexts-info.json`
-- Conversation flow:
-  1. User context tracked per `userId` (default: "default")
-  2. Intent must match current context prefix (e.g., `default.greeting`)
-  3. On match, context updates to `nextContext` from training data
-  4. Non-matching intents return empty response
-- Sentiment analysis adds emoji to responses (😁 positive, 😭 negative)
+### RAG System
 
-**Training Workflow:**
-1. Edit `src/model-train.json` with contexts/intents/sentences/answers/nextContext
-2. Run `yarn train` to generate model files
-3. Model auto-loads at runtime from `src/assets/models/model.nlp`
+**Knowledge Base:**
+- YAML files in `src/assets/texts/` (demoscene, dev-web, droit-travail, politique)
+- Indexed into ChromaDB via `scripts/reindex-rag.ts`
+- Vector embeddings for semantic search
+- Top-K retrieval (default: 3-5 chunks)
+
+**Indexing Workflow:**
+1. Edit YAML files in `src/assets/texts/`
+2. Run `yarn tsx scripts/reindex-rag.ts`
+3. ChromaDB automatically updates embeddings
 
 ### Utilities ([src/utils.ts](src/utils.ts))
 
@@ -106,23 +102,21 @@ yarn test       # Test NLP model
 - Output: `dist/` directory
 
 **Build Process:**
-- Uses `tsup` for minified compilation of `src/index.ts`
-- Custom script copies `src/assets/` to `dist/assets/` (fonts, images, texts, models)
+- Uses `tsup` for minified compilation of `src/index.ts` and `scripts/reindex-rag.ts`
+- Custom script copies `src/assets/` to `dist/src/assets/`
 - Assets must be copied because runtime code references them via `getStaticPath()`
 
 ### Assets Structure
 
-- `src/assets/fonts/` - Custom fonts for image generation
-- `src/assets/images/` - Source images for meme generation
-- `src/assets/texts/*.yml` - YAML dictionaries for random text generation
+- `src/assets/texts/*.yml` - YAML configuration and knowledge files
   - `personality.yml` - AI personality configuration (prompts, parameters, keywords)
   - `keywords.yml` - Keyword triggers for spontaneous reactions
-- `src/assets/models/` - NLP model files (generated, git-ignored)
+  - `demoscene.yml`, `dev-web.yml`, `droit-travail.yml`, `politique.yml` - RAG knowledge base
 
 ## Important Notes
 
-- Node version requirement: >=18 <19
-- Message processing stops at first non-empty service response
-- NLP context resets to "default" only when user restarts conversation flow
-- Slash commands are guild-specific, not global
-- Assets directory must exist in both src and dist for production builds
+- Node version requirement: >=18
+- Docker required for Ollama (LLM) and ChromaDB (vector database)
+- Assets directory must be in `dist/src/assets/` (matching `__dirname` structure)
+- Build process: `yarn build` compiles code AND copies assets to correct location
+- RAG knowledge must be reindexed after modifying YAML files in `src/assets/texts/`

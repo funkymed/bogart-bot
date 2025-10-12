@@ -49,7 +49,17 @@ export class PersonalityEngine {
     this.ragService = ragService;
 
     // Load personality config from YAML
-    this.config = getDictionnary('personality') as PersonalityConfig;
+    const config = getDictionnary('personality');
+
+    if (!config || !config.system_prompt) {
+      throw new Error(
+        '[PersonalityEngine] FATAL: personality.yml not found or invalid.\n' +
+        'Make sure src/assets/texts/personality.yml exists and is properly copied to dist/.\n' +
+        'Run: yarn build'
+      );
+    }
+
+    this.config = config as PersonalityConfig;
 
     console.log('[PersonalityEngine] Initialized with configurable personality');
   }

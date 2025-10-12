@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
-    "copy-assets": "cp -rv ./src/assets ./dist/",
+    "copy-assets": "cp -rv ./src/assets ./dist/src/",
     "build": "tsup src/index.ts scripts/reindex-rag.ts --minify && npm run copy-assets"
   },
   "dependencies": {

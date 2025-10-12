@@ -1,113 +1,72 @@
 # 🤖 Bogart Bot v2
 
-Bot Discord intelligent et polyvalent avec personnalité configurable, propulsé par un LLM local.
+Discord bot with local AI (Ollama + RAG).
 
 ![Bogart](./docs/assets/image.jpeg)
 
-> *A somewhat silly but useful bot developed by Cyril Pereira*
+## ✨ Features
 
-## ✨ Caractéristiques
+- 💬 Natural conversation with local LLM
+- 🧠 RAG (vector knowledge base)
+- 🔔 Spontaneous reactions on keywords
+- 🐳 100% Local (Ollama + ChromaDB)
+- 🎨 Configurable personality via YAML
 
-- 💬 **Conversation naturelle** - Small talk intelligent sans commandes
-- 🧠 **Expertise multi-domaines** - Demoscene, dev web, client lourd, droit du travail, politique FR/US
-- 🔔 **Réactions spontanées** - Intervention basée sur des mots-clés
-- 🎨 **Personnalité configurable** - Prompts et comportements personnalisables via YAML
-- 🧠 **RAG (Retrieval Augmented Generation)** - Base de connaissances vectorielle
-- 🐳 **100% Local** - LLM Ollama + ChromaDB, pas d'API externe
-- 🔒 **Privé** - Toutes les données restent sur votre serveur
-
-## 📜 Histoire
-
-- **2002** - Créé en Alambik pour IRC
-- **2016** - Porté en PHP pour Slack
-- **2023** - Réécrit en JavaScript ES6 pour Discord
-- **2024** - Version TypeScript avec IA locale (v2.0) 🎉
-
-## 🚀 Installation
-
-### Prérequis
-
-- **Node.js** 18.x
-- **Docker** + Docker Compose (pour Ollama et ChromaDB)
-- **8GB RAM minimum** (16GB recommandé)
-- **20GB espace disque**
-
-### Installation rapide
+## 🚀 Quick Start (Local)
 
 ```bash
-# 1. Cloner le repo
-git clone <repo-url>
+# 1. Clone and install
+git clone <repo>
 cd bogart-typescript
+make install
 
-# 2. Installer les dépendances
-yarn install
-
-# 3. Démarrer les services Docker
-docker-compose up -d
-
-# 4. Télécharger les modèles LLM (première fois)
-docker exec -it ollama ollama pull llama3.2:1b
-docker exec -it ollama ollama pull nomic-embed-text
-
-# 5. Configurer l'environnement
+# 2. Config Discord
 cp .env.dist .env
-# Éditez .env avec vos tokens Discord
+# Edit .env with DISCORD_TOKEN and DISCORD_APPID
 
-# 6. Indexer la base de connaissances
-yarn tsx scripts/reindex-rag.ts
+# 3. Full setup (Docker + Build + RAG)
+make setup
+make reindex
 
-# 7. Build et démarrer
-yarn build
-yarn start
+# 4. Start in dev
+make dev
 ```
 
-### Configuration .env
+## 🏭 Production
 
 ```bash
-# Discord (requis)
-DISCORD_TOKEN=votre_token_ici
-DISCORD_APPID=votre_app_id_ici
-DISCORD_GUILDID=votre_guild_id_optionnel
+# On server
+make setup      # Initial setup
+make reindex    # Index RAG
+make start      # Start with PM2
+```
 
-# Services locaux (par défaut)
+### Production commands
+
+```bash
+make start      # Start
+make stop       # Stop
+make logs       # View PM2 logs
+make health     # Health check
+make reindex    # Reindex RAG
+```
+
+## ⚙️ Configuration
+
+### Discord (.env)
+
+```bash
+DISCORD_TOKEN=your_token
+DISCORD_APPID=your_app_id
 OLLAMA_URL=http://localhost:11434
 CHROMA_URL=http://localhost:8000
 ```
 
-## 🎮 Utilisation
-
-### Conversation naturelle
-
-Mentionnez simplement Bogart dans vos messages Discord :
-
-```
-User: "Bogart, c'est quoi React ?"
-Bogart: "React est une bibliothèque JavaScript pour créer des interfaces
-         utilisateur avec des composants réutilisables. Développée par Meta."
-
-User: "Bogart, explique moi le CDI"
-Bogart: "Le CDI (Contrat à Durée Indéterminée) est le contrat de travail
-         par défaut en France sans date de fin. Protection maximale du salarié."
-```
-
-### Réactions spontanées
-
-Bogart détecte des mots-clés et peut intervenir spontanément :
-
-```
-User1: "J'ai regardé une démo Amiga hier"
-Bogart: "Amiga 500, la machine de légende ! 🎨"
-```
-
-## 🎨 Personnalisation
-
-### Modifier la personnalité
-
-Éditez `src/assets/texts/personality.yml` :
+### Personality (src/assets/texts/personality.yml)
 
 ```yaml
 system_prompt: |
-  Tu es Bogart, assistant technique expert...
+  You are Bogart, technical assistant...
 
 max_tokens:
   small_talk: 100
@@ -118,265 +77,66 @@ temperature:
   deep_question: 0.7
 ```
 
-### Ajouter des connaissances RAG
+### RAG Knowledge
 
-Éditez les fichiers dans `src/assets/texts/` :
+Edit `src/assets/texts/*.yml` then `make reindex`.
 
-- `demoscene.yml` - Culture demoscene, démos, Amiga/C64
-- `dev-web.yml` - Dev web, frontend, backend, frameworks
-- `droit-travail.yml` - Droit du travail français
-- `politique.yml` - Politique française et américaine
+**📖 Complete guide:** [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md)
 
-Après modification :
+## 📋 Commands
 
 ```bash
-yarn build
-yarn tsx scripts/reindex-rag.ts
-yarn start
+make help        # Show all commands
+make setup       # Full setup
+make dev         # Development mode
+make build       # Build TypeScript
+make start       # Production (PM2)
+make stop        # Stop
+make health      # Services status
+make logs        # PM2 logs
+make reindex     # Reindex RAG
 ```
 
-### Configurer les mots-clés
+## 🏗️ Stack
 
-Éditez `src/assets/texts/keywords.yml` :
+- Node.js 18+ + TypeScript
+- Discord.js 14
+- Ollama (llama3.2:3b)
+- ChromaDB (nomic-embed-text)
+- PM2 (production)
 
-```yaml
-votre_categorie:
-  keywords: ["mot1", "mot2"]
-  responses:
-    - "Réponse exemple"
-  useFixed: false  # true = réponse fixe, false = LLM génère
-```
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────┐
-│       Bogart Bot v2 Stack           │
-├─────────────────────────────────────┤
-│                                     │
-│  🐳 Docker Services                 │
-│  ├─ Ollama (llama3.2:1b)           │
-│  │  └─ LLM local rapide            │
-│  └─ ChromaDB                        │
-│     └─ Base vectorielle RAG        │
-│                                     │
-│  🤖 Bot Discord (Node.js/TS)        │
-│  ├─ MessageOrchestrator             │
-│  ├─ SmallTalkHandler                │
-│  ├─ DeepQuestionHandler             │
-│  ├─ KeywordEngine                   │
-│  ├─ PersonalityEngine               │
-│  └─ RAGService                      │
-│                                     │
-└─────────────────────────────────────┘
-```
-
-### Stack Technique
-
-- **Runtime:** Node.js 20 + TypeScript
-- **Framework:** Discord.js 14
-- **LLM:** Ollama (llama3.2:1b-instruct)
-- **Embeddings:** nomic-embed-text
-- **Vector DB:** ChromaDB
-- **Build:** tsup + asset copying
-
-### Consommation Ressources
+## 📊 Resources
 
 | Service | RAM | Disk |
 |---------|-----|------|
-| Ollama (1b) | ~1GB | 1.3GB |
+| Ollama | ~1GB | 2GB |
 | ChromaDB | ~200MB | 50MB |
 | Bot | ~100MB | - |
-| **Total** | **~1.3GB** | **~1.4GB** |
-
-## 🔧 Développement
-
-### Scripts disponibles
-
-```bash
-yarn dev              # Mode watch avec tsx
-yarn build            # Build TypeScript + copie assets
-yarn start            # Lance le bot compilé
-yarn train            # Entraîne le modèle NLP (legacy)
-yarn tsx scripts/reindex-rag.ts  # Réindexe ChromaDB
-```
-
-### Structure du projet
-
-```
-src/
-├── ai/
-│   ├── llm/              # Service Ollama
-│   ├── rag/              # Service RAG ChromaDB
-│   └── prompts/          # PersonalityEngine
-├── core/
-│   ├── message.orchestrator.ts
-│   └── memory.manager.ts
-├── handlers/
-│   ├── deepquestion.handler.ts
-│   ├── smalltalk.handler.ts
-│   └── keyword.engine.ts
-├── assets/
-│   └── texts/            # Config YAML (personality, RAG, keywords)
-├── types/                # Types TypeScript
-└── index.ts              # Entry point
-```
-
-## 🚀 Déploiement Production
-
-### Méthode recommandée : Script automatique
-
-Build en local et déploiement sur serveur distant :
-
-```bash
-# Depuis votre machine locale
-./deploy-remote.sh user@serveur:/path/to/bogart-typescript
-```
-
-Ce script fait tout automatiquement :
-- ✅ Build local
-- ✅ Archive et upload via SCP
-- ✅ Extraction sur le serveur
-- ✅ Installation des dépendances
-- ✅ Démarrage Docker
-- ✅ Indexation RAG
-- ✅ Redémarrage du bot
-
-### Méthode 1 : Systemd
-
-```bash
-# Sur le serveur
-git clone <repo-url>
-cd bogart-typescript
-yarn install
-yarn build
-
-# Démarrer les services Docker
-docker-compose up -d
-
-# Indexer RAG
-yarn tsx scripts/reindex-rag.ts
-
-# Créer service systemd
-sudo nano /etc/systemd/system/bogart.service
-```
-
-**Contenu du service :**
-
-```ini
-[Unit]
-Description=Bogart Discord Bot
-After=network.target docker.service
-
-[Service]
-Type=simple
-User=votre_user
-WorkingDirectory=/path/to/bogart-typescript
-Environment="NODE_ENV=production"
-ExecStart=/usr/bin/yarn start
-Restart=always
-RestartSec=10
-
-[Install]
-WantedBy=multi-user.target
-```
-
-```bash
-# Activer et démarrer
-sudo systemctl daemon-reload
-sudo systemctl enable bogart
-sudo systemctl start bogart
-sudo systemctl status bogart
-```
-
-### Méthode 2 : PM2
-
-```bash
-# Installer PM2
-npm install -g pm2
-
-# Démarrer le bot
-pm2 start dist/index.js --name bogart
-
-# Sauvegarder la config
-pm2 save
-pm2 startup
-```
-
-### Méthode 3 : Script simple (./restart.sh)
-
-```bash
-#!/bin/bash
-pkill -f "node.*dist/index.js"
-yarn build && nohup yarn start > bot.log 2>&1 &
-echo "Bot restarted. PID: $(pgrep -f 'node.*dist/index.js')"
-```
 
 ## 🆘 Troubleshooting
 
-### Bot ne répond pas
-
 ```bash
-# Vérifier les logs
-tail -f bot.log  # ou pm2 logs bogart
-
-# Vérifier les services Docker
-docker-compose ps
+# Docker services
+make docker-ps
 docker logs ollama
 docker logs chromadb
+
+# Health check
+make health
+
+# Reindex RAG
+make reindex
+
+# Bot logs
+make logs
 ```
 
-### Ollama ne répond pas
+## 📚 Docs
 
-```bash
-# Tester Ollama
-curl http://localhost:11434/api/generate -d '{
-  "model": "llama3.2:1b",
-  "prompt": "Hello",
-  "stream": false
-}'
-```
-
-### ChromaDB vide
-
-```bash
-# Réindexer
-yarn tsx scripts/reindex-rag.ts
-```
-
-### Réponses coupées
-
-Augmentez `max_tokens` dans `src/assets/texts/personality.yml` puis rebuild.
-
-## 📚 Documentation
-
-- **[CLAUDE.md](CLAUDE.md)** - Instructions pour Claude Code
-- **[docker-compose.yml](docker-compose.yml)** - Configuration Docker
-- **[Makefile](Makefile)** - Commandes utiles (si présent)
-
-## 🤝 Contribution
-
-Les contributions sont les bienvenues !
-
-1. Fork le projet
-2. Créer une branche (`git checkout -b feature/ma-feature`)
-3. Commit (`git commit -m 'Ajout feature'`)
-4. Push (`git push origin feature/ma-feature`)
-5. Ouvrir une Pull Request
-
-## 📝 License
-
-MIT
-
-## 🙏 Remerciements
-
-- **Ollama team** - LLM local performant
-- **ChromaDB** - Base vectorielle simple et efficace
-- **Discord.js** - Framework Discord solide
-- **Communauté demoscene** 🎨
+- [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md) - **Customization guide**
+- [CLAUDE.md](CLAUDE.md) - Development instructions
+- [Makefile](Makefile) - All commands
 
 ---
 
-**Développé avec ❤️ par Cyril Pereira**
-
-**Version:** 2.0 | **Status:** Production Ready
+**v2.0** | Cyril Pereira | MIT License

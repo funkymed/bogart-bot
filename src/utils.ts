@@ -88,7 +88,10 @@ const getDictionnary = (category: string): any | null => {
 
     return parsed;
   } catch (error) {
+    const filePath = `${getStaticPath()}/${dictionnaryFiles[category]}`;
     console.error(`[getDictionnary] Failed to load ${category}:`, error);
+    console.error(`[getDictionnary] Attempted path: ${filePath}`);
+    console.error(`[getDictionnary] __dirname: ${__dirname}`);
     return null;
   }
 };
