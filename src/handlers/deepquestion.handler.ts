@@ -6,6 +6,7 @@ import { PersonalityEngine } from '../ai/prompts/personality.engine';
 import { RAGService } from '../ai/rag/rag.service';
 import { MemoryManager } from '../core/memory.manager';
 import { MessageAnalyzer } from './message-analyzer';
+import { ThemeDetectorService } from '../ai/theme/theme-detector.service';
 import { HandlerContext, RAGDocument } from '../types';
 
 export class DeepQuestionHandler {
@@ -13,17 +14,20 @@ export class DeepQuestionHandler {
   private ragService: RAGService;
   private memoryManager: MemoryManager;
   private messageAnalyzer: MessageAnalyzer;
+  private themeDetector: ThemeDetectorService;
 
   constructor(
     personalityEngine: PersonalityEngine,
     ragService: RAGService,
     memoryManager: MemoryManager,
-    messageAnalyzer: MessageAnalyzer
+    messageAnalyzer: MessageAnalyzer,
+    themeDetector: ThemeDetectorService
   ) {
     this.personalityEngine = personalityEngine;
     this.ragService = ragService;
     this.memoryManager = memoryManager;
     this.messageAnalyzer = messageAnalyzer;
+    this.themeDetector = themeDetector;
     console.log('[DeepQuestionHandler] Initialized');
   }
 
@@ -75,13 +79,23 @@ export class DeepQuestionHandler {
       // Mettre à jour le contexte utilisateur
       this.memoryManager.updateUserContext(userId, { mood, topic });
 
-      // Récupérer le contexte RAG pertinent
+      // Détecter le thème de la question
+      console.log(`[DeepQuestionHandler] Detecting theme for: "${cleanContent.substring(0, 50)}..."`);
+      const themeResult = await this.themeDetector.detectTheme(cleanContent);
+      console.log(`[DeepQuestionHandler] Detected theme: "${themeResult.theme}" (confidence: ${themeResult.confidence.toFixed(2)})`);
+      console.log(`[DeepQuestionHandler] Will query categories: [${themeResult.categories.join(', ')}]`);
+
+      // Récupérer le contexte RAG pertinent (filtré par thème)
       let ragContext: RAGDocument[] = [];
       try {
-        ragContext = await this.ragService.retrieve(cleanContent, { topK: 5 });
-        console.log(`[DeepQuestionHandler] Retrieved ${ragContext.length} RAG documents for query: "${cleanContent}"`);
+        ragContext = await this.ragService.retrieveByCategories(
+          cleanContent,
+          themeResult.categories,
+          { topK: 5 }
+        );
+        console.log(`[DeepQuestionHandler] Retrieved ${ragContext.length} RAG documents`);
         ragContext.forEach((doc, i) => {
-          console.log(`  [${i+1}] (score: ${doc.score?.toFixed(2)}) ${doc.content.substring(0, 80)}...`);
+          console.log(`  [${i+1}] [${doc.category}] (score: ${doc.score?.toFixed(2)}) ${doc.content.substring(0, 60)}...`);
         });
       } catch (error) {
         console.error('[DeepQuestionHandler] RAG retrieval failed:', error);

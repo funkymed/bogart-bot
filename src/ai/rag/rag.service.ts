@@ -182,6 +182,27 @@ export class RAGService {
   }
 
   /**
+   * Récupère documents en filtrant par catégories
+   */
+  async retrieveByCategories(
+    query: string,
+    categories: string[],
+    options: RetrievalOptions = {}
+  ): Promise<RAGDocument[]> {
+    if (categories.length === 0) {
+      return this.retrieve(query, options);
+    }
+
+    // Build ChromaDB where filter for categories
+    // ChromaDB uses $in operator for "category IN (cat1, cat2, ...)"
+    const filter = {
+      category: { $in: categories }
+    };
+
+    return this.retrieve(query, { ...options, filter });
+  }
+
+  /**
    * Calcule un score de pertinence pour décider si le bot doit participer spontanément
    */
   async getRelevanceScore(message: string): Promise<number> {

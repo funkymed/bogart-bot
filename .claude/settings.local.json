@@ -25,7 +25,8 @@
       "Bash(time curl:*)",
       "Bash(pkill:*)",
       "Bash(node:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []

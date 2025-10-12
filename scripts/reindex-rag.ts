@@ -35,9 +35,12 @@ async function main() {
     await ragService.initialize();
     console.log('✅ Collection re-initialized\n');
 
-    // 5. Index new lexicon
+    // 5. Index new lexicon (dynamically load available dictionaries)
     console.log('5️⃣ Indexing all knowledge bases...');
-    await ragService.indexLexicon(['demoscene', 'dev-web', 'droit-travail', 'politique']);
+    const { getAvailableDictionnaries } = await import('../src/utils');
+    const availableDicts = getAvailableDictionnaries();
+    console.log(`   Found dictionaries: ${availableDicts.join(', ')}`);
+    await ragService.indexLexicon(availableDicts);
 
     const docCount = await ragService.getDocumentCount();
     console.log(`✅ Indexed ${docCount} documents\n`);

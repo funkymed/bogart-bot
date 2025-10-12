@@ -67,7 +67,7 @@ echo ""
 
 # 3. Indexer RAG
 echo "📚 Indexation de la base de connaissances..."
-tsx scripts/reindex-rag.js
+tsx dist/scripts/reindex-rag.js
 
 echo ""
 

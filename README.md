@@ -6,11 +6,18 @@ Discord bot with local AI (Ollama + RAG).
 
 ## ✨ Features
 
-- 💬 Natural conversation with local LLM
-- 🧠 RAG (vector knowledge base)
-- 🔔 Spontaneous reactions on keywords
-- 🐳 100% Local (Ollama + ChromaDB)
-- 🎨 Configurable personality via YAML
+- 💬 **Natural conversation** with local LLM
+- 🧠 **RAG** (vector knowledge base with theme detection)
+- 🎯 **Smart theme detection** (auto-filters relevant knowledge)
+- 🔍 **Web search** (`@Bogart recherche <query>`)
+- 🗣️ **Multiple response modes:**
+  - Deep questions with RAG context
+  - Quick small talk
+  - Web search + summarization
+- 🔔 **Spontaneous reactions** on keywords
+- 🐳 **100% Local** (Ollama + ChromaDB)
+- 🎨 **Configurable personality** via YAML
+- 📁 **Dynamic dictionary loading** (auto-discovers knowledge files)
 
 ## 🚀 Quick Start (Local)
 
@@ -51,6 +58,39 @@ make health     # Health check
 make reindex    # Reindex RAG
 ```
 
+## 💬 Usage
+
+### Talk to Bogart
+
+Simply mention the bot:
+
+```
+@Bogart what is React?
+→ Deep answer with RAG + theme detection
+```
+
+### Commands
+
+**Web search:**
+```
+@Bogart recherche latest React news
+@Bogart cherche Docker best practices
+→ Searches web via MCP and summarizes
+```
+
+**Deep question** (explicit):
+```
+@Bogart question: explain closures in JavaScript
+→ Detailed answer with RAG context
+```
+
+**Small talk:**
+```
+@Bogart hi!
+@Bogart how are you?
+→ Quick friendly response
+```
+
 ## ⚙️ Configuration
 
 ### Discord (.env)
@@ -79,7 +119,23 @@ temperature:
 
 ### RAG Knowledge
 
-Edit `src/assets/texts/*.yml` then `make reindex`.
+Add YAML files to `src/assets/texts/dictionnaries/` - they're auto-discovered!
+
+```bash
+# Add new knowledge domain
+vim src/assets/texts/dictionnaries/my-topic.yml
+make build
+make reindex
+```
+
+Current dictionaries:
+- `demoscene.yml` - Demoscene, retro computing
+- `dev-web.yml` - Programming, web dev
+
+**How it works:**
+1. Bot detects conversation theme (LLM classification)
+2. Queries only relevant dictionaries
+3. No more mixed/incoherent responses!
 
 **📖 Complete guide:** [docs/CUSTOMIZATION.md](docs/CUSTOMIZATION.md)
 
@@ -101,8 +157,9 @@ make reindex     # Reindex RAG
 
 - Node.js 18+ + TypeScript
 - Discord.js 14
-- Ollama (llama3.2:3b)
-- ChromaDB (nomic-embed-text)
+- Ollama (llama3.2:3b for chat, nomic-embed-text for embeddings)
+- ChromaDB (vector database)
+- Theme detection (LLM-based classification)
 - PM2 (production)
 
 ## 📊 Resources
@@ -115,6 +172,18 @@ make reindex     # Reindex RAG
 
 ## 🆘 Troubleshooting
 
+### Incoherent responses?
+
+Bot now uses **theme detection** to filter knowledge. Check logs:
+
+```bash
+make logs  # Look for "[ThemeDetector] Detected theme:"
+```
+
+If theme detection is wrong, the bot queries wrong dictionaries.
+
+### Services not responding
+
 ```bash
 # Docker services
 make docker-ps
@@ -124,7 +193,7 @@ docker logs chromadb
 # Health check
 make health
 
-# Reindex RAG
+# Reindex RAG (after adding/modifying dictionaries)
 make reindex
 
 # Bot logs

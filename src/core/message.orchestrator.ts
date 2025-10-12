@@ -5,6 +5,7 @@ import { Message } from 'discord.js';
 import { OllamaLLMService } from '../ai/llm/ollama.service';
 import { RAGService } from '../ai/rag/rag.service';
 import { PersonalityEngine } from '../ai/prompts/personality.engine';
+import { ThemeDetectorService } from '../ai/theme/theme-detector.service';
 import { MemoryManager } from './memory.manager';
 import { MessageAnalyzer } from '../handlers/message-analyzer';
 import { KeywordEngine } from '../handlers/keyword.engine';
@@ -19,6 +20,7 @@ export class MessageOrchestrator {
   private ragService: RAGService;
   private webSearchService: WebSearchService;
   private personalityEngine: PersonalityEngine;
+  private themeDetector: ThemeDetectorService;
   private memoryManager: MemoryManager;
   private messageAnalyzer: MessageAnalyzer;
   private keywordEngine: KeywordEngine;
@@ -41,6 +43,7 @@ export class MessageOrchestrator {
 
     // Créer les composants core
     this.personalityEngine = new PersonalityEngine(this.llmService, this.ragService);
+    this.themeDetector = new ThemeDetectorService(this.llmService);
     this.memoryManager = new MemoryManager();
 
     // Créer les analyseurs et moteurs
@@ -60,7 +63,8 @@ export class MessageOrchestrator {
       this.personalityEngine,
       this.ragService,
       this.memoryManager,
-      this.messageAnalyzer
+      this.messageAnalyzer,
+      this.themeDetector
     );
 
     this.webSearchHandler = new WebSearchHandler(

@@ -1,56 +1,58 @@
 # Personality Configuration for Bogart Bot
-# Configure how Bogart behaves and responds to users
+# Focused on code, digital art, and demoscene
 
-# Main system prompt (full personality description)
+# Main system prompt
 system_prompt: |
-  Tu es Bogart, assistant technique expert en demoscene, dev web, client lourd, droit du travail et politique FR/US.
+  You are Bogart, a friendly technical assistant specialized in:
+  - Software development (web, backend, frontend)
+  - Demoscene culture and retro computing (Amiga, C64, Atari ST)
+  - Digital art and creative coding
 
-  Réponds de façon DIRECTE et CONCISE. Pas d'intro, pas de blabla, droit au but.
+  Answer DIRECTLY and CONCISELY. No fluff, straight to the point.
+  
+  IMPORTANT: Keep responses under 250 words. Use bullet points for clarity.
 
-  IMPORTANT : Ta réponse doit tenir en maximum 250 mots. Structure en points ou paragraphes courts pour maximiser la clarté.
-
-# Short prompt for small talk (lightweight conversations)
-small_talk_prompt: "Tu es Bogart. Réponds en 1-2 phrases max (20-30 mots), direct et sympa."
+# Short prompt for small talk
+small_talk_prompt: "You are Bogart, a friendly tech assistant. Answer in 1-2 sentences max (20-30 words), direct and friendly."
 
 # Instructions for detailed responses
-detailed_instructions: "Sois DIRECT et PRÉCIS. Réponse complète mais LIMITÉE À 250 MOTS MAX. Utilise des listes à puces si nécessaire pour être concis. Priorité aux connaissances fournies."
+detailed_instructions: "Be DIRECT and PRECISE. Complete answer but LIMITED TO 250 WORDS MAX. Use bullet points if needed. Prioritize provided knowledge."
 
 # Temperature settings (0.0-1.0, higher = more creative)
 temperature:
-  small_talk: 0.9
-  deep_question: 0.7
-  spontaneous: 1.0
+  small_talk: 0.8
+  deep_question: 0.6
+  spontaneous: 0.9
 
 # Max tokens for responses
 max_tokens:
-  small_talk: 100     # au lieu de 200
-  deep_question: 300  # au lieu de 600
+  small_talk: 100
+  deep_question: 300
   spontaneous: 50
 
 # Timeout settings (milliseconds)
 timeout:
   small_talk: 15000   # 15 seconds
-  deep_question: 90000 # 90 seconds au lieu de 45
+  deep_question: 90000 # 90 seconds
   spontaneous: 20000   # 20 seconds
 
 # Mood detection keywords
 mood_keywords:
   positive:
-    - "super"
+    - "great"
     - "cool"
-    - "génial"
-    - "top"
-    - "merci"
+    - "awesome"
+    - "thanks"
     - "excellent"
     - ":)"
     - "😊"
     - "😄"
     - "🎉"
   negative:
-    - "nul"
-    - "merde"
-    - "chiant"
-    - "problème"
+    - "bad"
+    - "damn"
+    - "annoying"
+    - "problem"
     - "bug"
     - ":("
     - "😢"

@@ -39,6 +39,7 @@ function clearStorage(key: string): void {
 }
 
 function randomIntFromInterval(min: number, max: number): number {
+  // min and max included
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
@@ -48,15 +49,12 @@ function sleep(ms: number): Promise<void> {
   });
 }
 
-const getStaticPath = () => {
-  return `${__dirname}/assets`;
-};
-
 // Cache des dictionnaires chargés
 const dictionnaryCache: { [key: string]: any } = {};
 
 /**
  * Scans dictionnaries directory and builds mapping dynamically
+ * @returns Mapping of category names to file paths
  */
 const loadDictionnaryFiles = (): { [key: string]: string } => {
   const files: { [key: string]: string } = {
@@ -67,11 +65,13 @@ const loadDictionnaryFiles = (): { [key: string]: string } => {
   try {
     const dictPath = `${getStaticPath()}/texts/dictionnaries`;
 
+    // Check if directory exists
     if (!fs.existsSync(dictPath)) {
       console.warn('[loadDictionnaryFiles] dictionnaries/ directory not found');
       return files;
     }
 
+    // Read all .yml files in dictionnaries/
     const dictFiles = fs.readdirSync(dictPath).filter(f => f.endsWith('.yml'));
 
     dictFiles.forEach(file => {
@@ -79,8 +79,7 @@ const loadDictionnaryFiles = (): { [key: string]: string } => {
       files[categoryName] = `texts/dictionnaries/${file}`;
     });
 
-    const dictNames = Object.keys(files).filter(k => k !== 'personality' && k !== 'keywords');
-    console.log(`[loadDictionnaryFiles] Loaded ${dictFiles.length} dictionnaries:`, dictNames);
+    console.log(`[loadDictionnaryFiles] Loaded ${dictFiles.length} dictionnaries:`, Object.keys(files).filter(k => k !== 'personality' && k !== 'keywords'));
   } catch (error) {
     console.error('[loadDictionnaryFiles] Failed to scan dictionnaries:', error);
   }
@@ -88,6 +87,7 @@ const loadDictionnaryFiles = (): { [key: string]: string } => {
   return files;
 };
 
+// Lazy-load dictionary files mapping
 let dictionnaryFiles: { [key: string]: string } | null = null;
 
 const getDictionnaryFiles = (): { [key: string]: string } => {
@@ -97,13 +97,21 @@ const getDictionnaryFiles = (): { [key: string]: string } => {
   return dictionnaryFiles;
 };
 
+/**
+ * Charge un dictionnaire YAML par catégorie
+ * @param category - Nom de la catégorie (ex: "demoscene")
+ * @returns Le contenu du dictionnaire ou null si non trouvé
+ */
 const getDictionnary = (category: string): any | null => {
+  // Vérifier si déjà en cache
   if (dictionnaryCache[category]) {
     return dictionnaryCache[category];
   }
 
+  // Get dynamic file mapping
   const files = getDictionnaryFiles();
 
+  // Vérifier si la catégorie existe
   if (!files[category]) {
     console.warn(`[getDictionnary] Unknown category: ${category}`);
     return null;
@@ -114,7 +122,9 @@ const getDictionnary = (category: string): any | null => {
     const file = fs.readFileSync(fileName, "utf8");
     const parsed = YAML.parse(file);
 
+    // Mettre en cache
     dictionnaryCache[category] = parsed;
+
     return parsed;
   } catch (error) {
     const filePath = `${getStaticPath()}/${files[category]}`;
@@ -125,6 +135,13 @@ const getDictionnary = (category: string): any | null => {
   }
 };
 
+const getStaticPath = () => {
+  return `${__dirname}/assets`;
+};
+
+/**
+ * Returns list of available dictionary categories (excluding system files)
+ */
 const getAvailableDictionnaries = (): string[] => {
   const files = getDictionnaryFiles();
   return Object.keys(files).filter(k => k !== 'personality' && k !== 'keywords');
