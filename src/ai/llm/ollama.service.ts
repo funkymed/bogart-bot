@@ -14,8 +14,8 @@ export class OllamaLLMService {
 
     console.log(`[OllamaLLMService] Initialized with model: ${this.modelName} (native API)`);
 
-    // Pré-charger le modèle en arrière-plan pour accélérer le 1er appel
-    this.warmup();
+    // Warmup désactivé : interfère avec les requêtes concurrentes et cause des timeouts
+    // Le modèle sera chargé à la première vraie requête
   }
 
   /**

@@ -10,17 +10,21 @@ import { MessageAnalyzer } from '../handlers/message-analyzer';
 import { KeywordEngine } from '../handlers/keyword.engine';
 import { SmallTalkHandler } from '../handlers/smalltalk.handler';
 import { DeepQuestionHandler } from '../handlers/deepquestion.handler';
+import { WebSearchHandler } from '../handlers/websearch.handler';
+import { WebSearchService } from '../ai/mcp/websearch.service';
 import { MessageType, HandlerContext } from '../types';
 
 export class MessageOrchestrator {
   private llmService: OllamaLLMService;
   private ragService: RAGService;
+  private webSearchService: WebSearchService;
   private personalityEngine: PersonalityEngine;
   private memoryManager: MemoryManager;
   private messageAnalyzer: MessageAnalyzer;
   private keywordEngine: KeywordEngine;
   private smallTalkHandler: SmallTalkHandler;
   private deepQuestionHandler: DeepQuestionHandler;
+  private webSearchHandler: WebSearchHandler;
 
   private isInitialized = false;
 
@@ -33,6 +37,7 @@ export class MessageOrchestrator {
     // Créer les services de base (3b = meilleur équilibre qualité/vitesse en prod)
     this.llmService = new OllamaLLMService(process.env.OLLAMA_MODEL || 'llama3.2:3b', ollamaUrl);
     this.ragService = new RAGService(chromaUrl, ollamaUrl);
+    this.webSearchService = new WebSearchService();
 
     // Créer les composants core
     this.personalityEngine = new PersonalityEngine(this.llmService, this.ragService);
@@ -56,6 +61,13 @@ export class MessageOrchestrator {
       this.ragService,
       this.memoryManager,
       this.messageAnalyzer
+    );
+
+    this.webSearchHandler = new WebSearchHandler(
+      this.webSearchService,
+      this.llmService,
+      this.personalityEngine,
+      this.memoryManager
     );
 
     console.log('[MessageOrchestrator] Components created');
@@ -140,6 +152,12 @@ export class MessageOrchestrator {
       switch (analysis.type) {
         case MessageType.IGNORE:
           return null;
+
+        case MessageType.WEB_SEARCH_COMMAND:
+          return await this.webSearchHandler.handle({
+            ...context,
+            searchQuery: (analysis as any).searchQuery
+          });
 
         case MessageType.DEEP_QUESTION:
           return await this.deepQuestionHandler.handle(context);
@@ -235,6 +253,7 @@ export class MessageOrchestrator {
     keywordStats: ReturnType<KeywordEngine['getStats']>;
     smallTalkStats: ReturnType<SmallTalkHandler['getStats']>;
     deepQuestionStats: ReturnType<DeepQuestionHandler['getStats']>;
+    webSearchStats: ReturnType<WebSearchHandler['getStats']>;
   } {
     return {
       initialized: this.isInitialized,
@@ -242,7 +261,8 @@ export class MessageOrchestrator {
       memoryStats: this.memoryManager.getStats(),
       keywordStats: this.keywordEngine.getStats(),
       smallTalkStats: this.smallTalkHandler.getStats(),
-      deepQuestionStats: this.deepQuestionHandler.getStats()
+      deepQuestionStats: this.deepQuestionHandler.getStats(),
+      webSearchStats: this.webSearchHandler.getStats()
     };
   }
 

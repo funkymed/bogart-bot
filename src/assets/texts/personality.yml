@@ -23,14 +23,14 @@ temperature:
 
 # Max tokens for responses
 max_tokens:
-  small_talk: 200
-  deep_question: 600
+  small_talk: 100     # au lieu de 200
+  deep_question: 300  # au lieu de 600
   spontaneous: 50
 
 # Timeout settings (milliseconds)
 timeout:
   small_talk: 15000   # 15 seconds
-  deep_question: 45000 # 45 seconds (plus de tokens = plus de temps)
+  deep_question: 90000 # 90 seconds au lieu de 45
   spontaneous: 20000   # 20 seconds
 
 # Mood detection keywords

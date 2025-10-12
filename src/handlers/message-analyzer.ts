@@ -45,7 +45,30 @@ export class MessageAnalyzer {
       return { type: MessageType.IGNORE, confidence: 1.0 };
     }
 
-    // 1. Vérifier si le bot est mentionné (@Bogart ou mot "bogart")
+    // 1. Nettoyer le contenu pour une meilleure détection
+    const cleanContent = content
+      .replace(/<@!?\d+>/g, 'bogart')  // Remplace @Bogart par "bogart"
+      .replace(/\s+/g, ' ')             // Normalise espaces multiples
+      .trim();
+
+    // 2. Détecter "bogart recherche XXX" ou "bogart cherche XXX" (priorité haute)
+    // Gère les "...", ponctuation, et fin de ligne
+    const searchMatch = cleanContent.match(/bogart\s+(recherche|cherche)\s+(.+?)(?:\.{3,}|\.\.\.|$)/i);
+    if (searchMatch) {
+      const query = searchMatch[2].trim();  // Groupe 2 car groupe 1 est "recherche|cherche"
+      // Ignorer si la query est vide
+      if (query.length > 0) {
+        console.log(`[MessageAnalyzer] 🔍 Web search detected: "${query}"`);
+        return {
+          type: MessageType.WEB_SEARCH_COMMAND,
+          searchQuery: query,
+          confidence: 1.0,
+          mentionsBot: true
+        };
+      }
+    }
+
+    // 2. Vérifier si le bot est mentionné (@Bogart ou mot "bogart")
     const isMentioned = message.mentions.users.has(message.client.user?.id || '') ||
                        this.botMentionPattern.test(content);
 

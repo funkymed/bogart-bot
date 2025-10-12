@@ -267,4 +267,11 @@ ${ragContext.map((doc, i) => `${i + 1}. "${doc.content}"`).join('\n')}
   getRAGService(): RAGService {
     return this.ragService;
   }
+
+  /**
+   * Récupère la configuration de personnalité
+   */
+  getConfig(): PersonalityConfig {
+    return this.config;
+  }
 }

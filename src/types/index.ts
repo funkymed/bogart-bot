@@ -7,6 +7,7 @@ export enum MessageType {
   SMALL_TALK = 'small_talk',
   DEEP_QUESTION = 'deep_question',
   KEYWORD_TRIGGER = 'keyword',
+  WEB_SEARCH_COMMAND = 'web_search_command',
   IGNORE = 'ignore'
 }
 
@@ -15,6 +16,8 @@ export interface AnalysisResult {
   type: MessageType;
   confidence: number;
   trigger?: string; // Pour KEYWORD_TRIGGER
+  searchQuery?: string; // Pour WEB_SEARCH_COMMAND
+  mentionsBot?: boolean;
 }
 
 // Contexte pour les handlers
